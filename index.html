@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=20260809a" />
+  <link rel="stylesheet" href="style.css?v=20260809c" />
   <script>
     // Prevent theme flash: load saved theme before CSS renders
     (function() {
@@ -45,17 +45,10 @@
         <a href="#experience">Experience</a>
         <a href="#expertise">Expertise</a>
         <a href="#education">Education</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#publications">Publications</a>
-        <a href="https://bayhaqy.github.io/games/" class="nav-games" target="_blank" rel="noopener">🎮 Games</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
 
       <div class="nav-extras">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
-          <span class="icon-moon">🌙</span>
-          <span class="icon-sun">☀️</span>
-        </button>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -406,14 +399,21 @@
       </div>
     </section>
 
-    <!-- ============ EDUCATION ============ -->
+    <!-- ============ EDUCATION & CREDENTIALS ============ -->
     <section id="education" class="section section-alt">
       <div class="container">
         <header class="section-head">
-          <p class="section-eyebrow">04 — Education</p>
-          <h2 class="section-title">Academic foundation</h2>
+          <p class="section-eyebrow">04 — Education &amp; Credentials</p>
+          <h2 class="section-title">Academic foundation, certifications, and publications</h2>
+          <p class="section-sub">
+            A consolidated view of formal education, industry-recognised credentials, and peer-reviewed research.
+          </p>
         </header>
 
+        <!-- 4a. Academic foundation -->
+        <div class="edu-subhead">
+          <h3 class="edu-subhead-title">Academic foundation</h3>
+        </div>
         <div class="edu-grid">
           <article class="card edu-card">
             <span class="edu-period">2017 — 2019</span>
@@ -437,22 +437,15 @@
             <p class="edu-school">Bina Sarana Informatika · Salemba, Jakarta</p>
           </article>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ CERTIFICATIONS ============ -->
-    <section id="certifications" class="section">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-eyebrow">05 — Certifications</p>
-          <h2 class="section-title">Industry-recognised credentials</h2>
-          <p class="section-sub">
-            Every credential links to its official issuer page — click to verify.
-            View the full list on
+        <!-- 4b. Industry certifications -->
+        <div class="edu-subhead">
+          <h3 class="edu-subhead-title">Industry-recognised certifications</h3>
+          <p class="edu-subhead-note">
+            Every credential links to its official issuer page — click to verify. Full list on
             <a href="https://www.linkedin.com/in/achmad-bayhaqy/details/certifications/" target="_blank" rel="noopener" class="inline-link">LinkedIn</a>.
           </p>
-        </header>
-
+        </div>
         <div class="cert-groups">
 
           <div class="card cert-group">
@@ -494,21 +487,15 @@
           </div>
 
         </div>
-      </div>
-    </section>
 
-    <!-- ============ PUBLICATIONS ============ -->
-    <section id="publications" class="section section-alt">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-eyebrow">06 — Publications</p>
-          <h2 class="section-title">Selected academic work</h2>
-          <p class="section-sub">
+        <!-- 4c. Selected publications -->
+        <div class="edu-subhead">
+          <h3 class="edu-subhead-title">Selected academic publications</h3>
+          <p class="edu-subhead-note">
             SINTA ID 6762248 · ~196 Google Scholar citations ·
             <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener" class="inline-link">View Google Scholar profile</a>
           </p>
-        </header>
-
+        </div>
         <ol class="pub-list">
           <li>
             <span class="pub-title">Sentiment Analysis about E-Commerce from Tweets Using Decision Tree, K-Nearest Neighbor, and Naive Bayes.</span>
@@ -527,7 +514,7 @@
     <section id="contact" class="section contact-section">
       <div class="container">
         <header class="section-head">
-          <p class="section-eyebrow">07 — Contact</p>
+          <p class="section-eyebrow">05 — Contact</p>
           <h2 class="section-title">Let's build something measurable</h2>
           <p class="section-sub">
             Open to executive conversations, advisory engagements, and academic collaborations.
@@ -553,29 +540,36 @@
           <ul class="contact-links">
             <li>
               <a href="https://www.linkedin.com/in/achmad-bayhaqy" target="_blank" rel="noopener">
-                <span class="cl-label">LinkedIn</span>
+                <span class="cl-label">My LinkedIn</span>
                 <span class="cl-value">/in/achmad-bayhaqy</span>
                 <span class="cl-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </li>
             <li>
               <a href="https://github.com/bayhaqy" target="_blank" rel="noopener">
-                <span class="cl-label">GitHub</span>
+                <span class="cl-label">My GitHub</span>
                 <span class="cl-value">github.com/bayhaqy</span>
                 <span class="cl-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </li>
             <li>
               <a href="https://blog.bayhaqy.my.id" target="_blank" rel="noopener">
-                <span class="cl-label">Blog</span>
+                <span class="cl-label">My Blog</span>
                 <span class="cl-value">blog.bayhaqy.my.id</span>
                 <span class="cl-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </li>
             <li>
               <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener">
-                <span class="cl-label">Scholar</span>
+                <span class="cl-label">My Scholar</span>
                 <span class="cl-value">~196 citations &middot; SINTA 6762248</span>
+                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://bayhaqy.github.io/games/" target="_blank" rel="noopener">
+                <span class="cl-label">My Games</span>
+                <span class="cl-value">bayhaqy.github.io/games</span>
                 <span class="cl-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </li>
@@ -593,6 +587,11 @@
   <footer class="site-footer">
     <div class="container footer-wrap">
       <p class="footer-copy">&copy; <span id="year">2026</span> Achmad Bayhaqy. All rights reserved.</p>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="icon-moon" aria-hidden="true">🌙</span>
+        <span class="icon-sun" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-label">Theme</span>
+      </button>
     </div>
   </footer>
 
@@ -602,6 +601,6 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="script.js?v=20260809a"></script>
+  <script src="script.js?v=20260809c"></script>
 </body>
 </html>
