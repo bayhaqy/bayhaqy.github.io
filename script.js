@@ -313,28 +313,22 @@
     });
   });
 
-  /* ---------- Publication PDF inline viewer toggle ---------- */
-  var pubToggles = document.querySelectorAll('.pub-toggle');
-  pubToggles.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var targetId = btn.getAttribute('data-target');
-      if (!targetId) return;
-      var panel = document.getElementById(targetId);
-      if (!panel) return;
-      var isOpen = !panel.hidden;
-      if (isOpen) {
-        panel.hidden = true;
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        panel.hidden = false;
-        btn.setAttribute('aria-expanded', 'true');
-        // Lazy-load iframe: set src only when first opened (src is already set;
-        // this is a hook for future lazy loading if needed).
-        // Scroll the panel into view smoothly so the reader can see it
-        try {
-          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } catch (e) {}
-      }
-    });
-  });
+  /* ---------- Publication PDF inline viewer ---------- */
+  // PDFs are now always visible (no toggle); reserve hook for future lazy-loading if needed.
+  var pubPdfs = document.querySelectorAll('.pub-pdf-wrap iframe');
+  if ('IntersectionObserver' in window && pubPdfs.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var f = en.target;
+          if (f.getAttribute('data-src')) {
+            f.setAttribute('src', f.getAttribute('data-src'));
+            f.removeAttribute('data-src');
+          }
+          io.unobserve(f);
+        }
+      });
+    }, { rootMargin: '200px' });
+    pubPdfs.forEach(function (f) { io.observe(f); });
+  }
 })();
