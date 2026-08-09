@@ -227,8 +227,6 @@
     { id: 'experience', label: 'Experience' },
     { id: 'expertise', label: 'Expertise' },
     { id: 'education', label: 'Education' },
-    { id: 'certifications', label: 'Certs' },
-    { id: 'publications', label: 'Publications' },
     { id: 'contact', label: 'Contact' }
   ];
   if (window.innerWidth > 960) {
