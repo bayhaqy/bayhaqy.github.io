@@ -7,7 +7,7 @@
 
 /* ---------- Design tokens ---------- */
 :root {
-  /* Color — white / red / black */
+  /* Color — white / red / black (LIGHT THEME — default) */
   --red-700:    #B91C1C;   /* primary accent */
   --red-800:    #991B1B;   /* hover */
   --red-900:    #7F1D1D;   /* strong */
@@ -22,6 +22,19 @@
   --line-soft:  #F3F4F6;   /* gray-100 */
   --paper:      #FFFFFF;
   --paper-alt:  #FAFAFA;   /* off-white section bg */
+
+  /* Header bg (semi-transparent for blur) */
+  --header-bg:        rgba(255, 255, 255, 0.92);
+  --header-bg-scrolled: rgba(255, 255, 255, 0.96);
+
+  /* Footer */
+  --footer-bg:    #111111;
+  --footer-text:  #9CA3AF;
+  --footer-accent: #D1D5DB;
+
+  /* Selection */
+  --selection-bg: var(--red-700);
+  --selection-fg: #FFFFFF;
 
   /* Type scale */
   --fs-xs:   0.78rem;
@@ -48,6 +61,35 @@
 
   /* Motion */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ---------- Dark theme ---------- */
+[data-theme="dark"] {
+  --ink:        #F1F5F9;   /* light text on dark bg */
+  --ink-soft:   #CBD5E1;   /* slate-300 */
+  --ink-mute:   #94A3B8;   /* slate-400 */
+  --ink-faint:  #64748B;   /* slate-500 */
+
+  --line:       #334155;   /* slate-700 dividers */
+  --line-soft:  #1E293B;   /* slate-800 */
+  --paper:      #0F172A;   /* slate-900 main bg */
+  --paper-alt:  #1E293B;   /* slate-800 alt bg */
+
+  --red-50:     rgba(185, 28, 28, 0.12);  /* dark tint */
+
+  --header-bg:        rgba(15, 23, 42, 0.92);
+  --header-bg-scrolled: rgba(15, 23, 42, 0.97);
+
+  --footer-bg:    #020617;   /* slate-950 */
+  --footer-text:  #94A3B8;
+  --footer-accent: #CBD5E1;
+
+  --selection-bg: var(--red-700);
+  --selection-fg: #FFFFFF;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.4);
+  --shadow:    0 4px 14px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3);
+  --shadow-lg: 0 20px 40px -16px rgba(0,0,0,0.6);
 }
 
 /* ---------- Reset ---------- */
@@ -82,7 +124,7 @@ h1, h2, h3, h4 {
 p { margin: 0 0 1.1em; color: var(--ink-soft); }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 button { font-family: inherit; cursor: pointer; border: 0; background: transparent; }
-::selection { background: var(--red-700); color: #fff; }
+::selection { background: var(--selection-bg); color: var(--selection-fg); }
 
 /* ---------- Layout helpers ---------- */
 .container {
@@ -153,7 +195,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-bg);
   backdrop-filter: saturate(180%) blur(12px);
   -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid transparent;
@@ -161,7 +203,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 }
 .site-header.scrolled {
   border-bottom-color: var(--line);
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--header-bg-scrolled);
 }
 .nav-wrap {
   display: flex;
@@ -179,16 +221,66 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 }
 .brand:hover { color: var(--ink); }
 .brand-logo {
-  height: 40px;
+  height: 38px;
   width: auto;
-  border-radius: 7px;
+  border-radius: 6px;
   display: block;
   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+  /* Hide logo with dark outline when in dark theme; show light variant */
 }
+[data-theme="dark"] .brand-logo { mix-blend-mode: normal; }
 .brand:hover .brand-logo {
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  background: var(--paper-alt);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 18px;
+  line-height: 1;
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--line-soft);
+  border-color: var(--ink-mute);
+  color: var(--ink);
+}
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* Nav extras (theme toggle + games link positioning) */
+.nav-extras {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-games {
+  color: var(--ink-soft);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  transition: color .2s var(--ease), background .2s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.nav-games:hover { color: var(--ink); background: var(--line-soft); }
+.nav-games .game-icon { font-size: 1rem; }
 
 .nav-links {
   display: flex;
@@ -896,8 +988,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: var(--ink);
-  color: #D1D5DB;
+  background: var(--footer-bg);
+  color: var(--footer-accent);
   padding-block: 1.75rem;
   border-top: 3px solid var(--red-700);
 }
@@ -910,7 +1002,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 }
 .footer-copy {
   font-size: var(--fs-xs);
-  color: #9CA3AF;
+  color: var(--footer-text);
   margin: 0;
   letter-spacing: 0.02em;
   text-align: center;
@@ -961,7 +1053,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 
   /* Shrink sticky header on mobile for more content space */
   .nav-wrap { height: 56px; }
-  .brand-logo { height: 30px; }
+  .brand-logo { height: 28px; }
   .nav-toggle { padding: 6px; }
   .nav-toggle span { width: 20px; }
 
@@ -995,6 +1087,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
     padding: 0.75rem 1rem !important;
   }
   .nav-toggle { display: flex; }
+
+  /* On mobile, theme toggle stays in header bar (next to hamburger) */
+  .nav-extras { gap: 0.35rem; }
+  .theme-toggle { width: 34px; height: 34px; font-size: 16px; }
+  .nav-games { display: none; }  /* hidden on mobile — shown in nav menu instead */
 
   .hero { padding-top: 4.5rem; padding-bottom: 2.5rem; }
   .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
