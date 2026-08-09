@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,13 +18,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // Prevent theme flash: load saved theme before CSS renders
+    (function() {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <!-- ============ HEADER / NAV ============ -->
   <header class="site-header" id="siteHeader">
     <div class="container nav-wrap">
       <a href="#hero" class="brand" aria-label="Achmad Bayhaqy — Home">
-        <img src="assets/logo.png" alt="Achmad Bayhaqy" class="brand-logo" width="110" height="84" />
+        <img src="assets/logo.png" alt="Achmad Bayhaqy" class="brand-logo" id="brandLogo" width="110" height="49" />
       </a>
 
       <nav class="nav-links" id="navLinks" aria-label="Primary">
@@ -34,12 +47,19 @@
         <a href="#education">Education</a>
         <a href="#certifications">Certifications</a>
         <a href="#publications">Publications</a>
+        <a href="https://bayhaqy.github.io/games/" class="nav-games" target="_blank" rel="noopener">🎮 Games</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
 
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-extras">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <span class="icon-moon">🌙</span>
+          <span class="icon-sun">☀️</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
