@@ -1040,12 +1040,65 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--paper-alt);
-  animation: pubFadeIn .35s var(--ease);
 }
 .pub-pdf-wrap[hidden] { display: none; }
-@keyframes pubFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+
+/* ---------- AWS image-card grid (image evidence cards) ---------- */
+.cert-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.cert-image-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+}
+.cert-image-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--red-700);
+}
+.cert-image-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f4f4f4;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.cert-image-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #ffffff;
+  transition: transform .35s var(--ease);
+}
+.cert-image-card:hover .cert-image-img img { transform: scale(1.03); }
+.cert-image-body {
+  padding: 1rem 1.15rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+.cert-image-tag {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red-700);
+}
+.cert-image-title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.005em;
+  line-height: 1.35;
 }
 .pub-pdf-wrap iframe {
   width: 100%;
@@ -1258,12 +1311,19 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
     border-bottom: 1px solid var(--line);
     padding: 0.5rem 1.25rem 1rem;
     box-shadow: var(--shadow-lg);
-    transform: translateY(-110%);
-    transition: transform .3s var(--ease);
+    transform: translateY(-100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .3s var(--ease), visibility 0s linear .3s;
     max-height: calc(100vh - 56px);
     overflow-y: auto;
   }
-  .nav-links.open { transform: translateY(0); }
+  .nav-links.open {
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform .3s var(--ease), visibility 0s linear 0s;
+  }
   .nav-links a {
     padding: 0.9rem 0.5rem;
     border-radius: 0;
