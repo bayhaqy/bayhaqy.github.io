@@ -1,5 +1,5 @@
 /* =================================================================
-   Achmad Bayhaqy — Portfolio · Vanilla JS
+   Achmad Bayhaqy — Portfolio v2 · Vanilla JS
    No dependencies, no frameworks, no API keys.
    ================================================================= */
 (function () {
@@ -33,17 +33,14 @@
       setNav(!isOpen);
     });
   }
-  // Close on link click (mobile)
   if (navLinks) {
     navLinks.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () { setNav(false); });
     });
   }
-  // Close on Escape
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
-  // Close when clicking outside
   document.addEventListener('click', function (e) {
     if (!navLinks || !navToggle) return;
     if (navLinks.classList.contains('open') &&
@@ -54,7 +51,7 @@
   });
 
   /* ---------- Smooth scroll with sticky-header offset ---------- */
-  var headerOffset = 70; // matches nav height
+  var headerOffset = 68;
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var id = anchor.getAttribute('href');
@@ -64,7 +61,6 @@
       e.preventDefault();
       var top = target.getBoundingClientRect().top + window.scrollY - headerOffset + 1;
       window.scrollTo({ top: top, behavior: 'smooth' });
-      // Update focus for accessibility
       target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     });
@@ -94,15 +90,16 @@
     sections.forEach(function (s) { observer.observe(s); });
   }
 
-  /* ---------- Subtle reveal on scroll (graceful, no AI slop) ---------- */
+  /* ---------- Subtle reveal on scroll (graceful) ---------- */
   var revealEls = document.querySelectorAll(
-    '.timeline-item, .expertise-card, .edu-card, .cert-group, .pub-list li, .contact-card, .about-side .card'
+    '.timeline-item, .expertise-card, .edu-card, .cert-group, .pub-list li, .contact-chip, .about-side .card, .hero-photo'
   );
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    revealEls.forEach(function (el) {
+    revealEls.forEach(function (el, i) {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(12px)';
-      el.style.transition = 'opacity .55s cubic-bezier(0.22,0.61,0.36,1), transform .55s cubic-bezier(0.22,0.61,0.36,1)';
+      el.style.transform = 'translateY(14px)';
+      el.style.transition = 'opacity .6s cubic-bezier(0.22,0.61,0.36,1), transform .6s cubic-bezier(0.22,0.61,0.36,1)';
+      el.style.transitionDelay = Math.min(i * 40, 240) + 'ms';
     });
     var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -114,5 +111,15 @@
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
     revealEls.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  /* ---------- CV download tracking (lightweight, no analytics SDK) ---------- */
+  var cvLink = document.querySelector('a[href*="Achmad_Bayhaqy_CV_2026.pdf"]');
+  if (cvLink) {
+    cvLink.addEventListener('click', function () {
+      // Optional: hook into your analytics here (Plausible/Umami/GA4)
+      // window.plausible && window.plausible('Download CV');
+      console.log('[portfolio] CV download initiated');
+    });
   }
 })();
