@@ -131,7 +131,7 @@
 
   /* ---------- Subtle reveal on scroll (graceful) ---------- */
   var revealEls = document.querySelectorAll(
-    '.timeline-item, .expertise-card, .edu-card, .cert-group, .pub-list li, .contact-invite, .contact-links li, .about-side .card, .hero-photo'
+    '.timeline-item, .expertise-card, .edu-card, .cert-group, .cert-featured-card, .pub-card, .contact-invite, .contact-links li, .about-side .card, .hero-photo'
   );
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     revealEls.forEach(function (el, i) {
@@ -310,6 +310,31 @@
       // Optional: hook into your analytics here (Plausible/Umami/GA4)
       // window.plausible && window.plausible('Download CV');
       console.log('[portfolio] CV download initiated');
+    });
+  });
+
+  /* ---------- Publication PDF inline viewer toggle ---------- */
+  var pubToggles = document.querySelectorAll('.pub-toggle');
+  pubToggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+      var panel = document.getElementById(targetId);
+      if (!panel) return;
+      var isOpen = !panel.hidden;
+      if (isOpen) {
+        panel.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        panel.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        // Lazy-load iframe: set src only when first opened (src is already set;
+        // this is a hook for future lazy loading if needed).
+        // Scroll the panel into view smoothly so the reader can see it
+        try {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch (e) {}
+      }
     });
   });
 })();
