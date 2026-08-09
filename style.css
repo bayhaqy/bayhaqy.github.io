@@ -1339,9 +1339,16 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   }
   .nav-toggle { display: flex; }
 
-  /* On mobile, theme toggle stays in header bar (next to hamburger) */
+  /* On mobile, theme toggle is a clean icon-only circle */
   .nav-extras { gap: 0.35rem; }
-  .theme-toggle { width: 34px; height: 34px; font-size: 16px; }
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 16px;
+    border-radius: 999px;
+  }
+  .theme-toggle .theme-toggle-label { display: none; }
   .nav-games { display: none; }  /* hidden on mobile — shown in nav menu instead */
 
   .hero { padding-top: 4.5rem; padding-bottom: 2.5rem; }
