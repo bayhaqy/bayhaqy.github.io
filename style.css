@@ -94,7 +94,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .section {
   padding-block: var(--space-section);
   background: var(--paper);
-  scroll-margin-top: 80px;
+  scroll-margin-top: 100px;
 }
 .section-alt { background: var(--paper-alt); }
 .section-head { margin-bottom: 3rem; max-width: 760px; }
@@ -249,7 +249,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  scroll-margin-top: 80px;
+  scroll-margin-top: 100px;
 }
 .hero::before {
   content: "";
@@ -898,49 +898,23 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .site-footer {
   background: var(--ink);
   color: #D1D5DB;
-  padding-block: 2.5rem;
+  padding-block: 1.75rem;
   border-top: 3px solid var(--red-700);
 }
 .footer-wrap {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem 2rem;
+  justify-content: center;
+  gap: 0.5rem;
 }
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-.footer-logo {
-  height: 46px;
-  width: auto;
-  border-radius: 6px;
-  display: block;
-}
-.footer-brand .footer-logo { background: var(--paper); padding: 3px; }
-.footer-name { color: var(--paper); font-weight: 700; margin: 0; font-size: var(--fs-md); }
-.footer-role { color: #9CA3AF; font-size: var(--fs-sm); margin: 0.1rem 0 0; }
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-}
-.footer-links a {
-  color: #D1D5DB;
-  font-size: var(--fs-sm);
-}
-.footer-links a:hover { color: var(--red-700); }
 .footer-copy {
   font-size: var(--fs-xs);
-  color: #6B7280;
+  color: #9CA3AF;
   margin: 0;
   letter-spacing: 0.02em;
-  width: 100%;
   text-align: center;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  width: 100%;
 }
 
 /* ---------- Responsive (mobile-first adjustments) ---------- */
@@ -1016,7 +990,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   }
   .nav-toggle { display: flex; }
 
-  .hero { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .hero { padding-top: 3.5rem; padding-bottom: 2.5rem; }
   .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
   .hero-actions .btn { width: 100%; }
   .hero-photo {
@@ -1044,8 +1018,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   .contact-invite { gap: 1.25rem; }
   .cl-label { width: 70px; }
 
-  .footer-wrap { flex-direction: column; align-items: flex-start; }
-  .footer-copy { text-align: left; width: 100%; }
+  .footer-wrap { flex-direction: column; align-items: center; }
+  .footer-copy { text-align: center; width: 100%; }
 }
 
 @media (max-width: 480px) {
