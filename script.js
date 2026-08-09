@@ -51,7 +51,10 @@
   });
 
   /* ---------- Smooth scroll with sticky-header offset ---------- */
-  var headerOffset = 68;
+  // Use 90px to account for sticky header (68px desktop / 56px mobile)
+  // PLUS mobile browser address bar (~50px on initial view before it auto-hides).
+  // This is a compromise that works whether address bar is visible or hidden.
+  var headerOffset = 90;
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var id = anchor.getAttribute('href');
