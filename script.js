@@ -9,6 +9,34 @@
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Theme toggle (light/dark) ---------- */
+  var themeToggle = document.getElementById('themeToggle');
+  var brandLogo = document.getElementById('brandLogo');
+  var STORAGE_KEY = 'portfolio-theme';
+
+  function getCurrentTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+    // Swap logo: light variant for dark theme, dark variant for light theme
+    if (brandLogo) {
+      brandLogo.src = theme === 'dark' ? 'assets/logo-light.png' : 'assets/logo.png';
+    }
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
+
+  // Sync logo on load (in case theme was loaded from storage before JS)
+  applyTheme(getCurrentTheme());
+
   /* ---------- Sticky header shadow on scroll ---------- */
   var header = document.getElementById('siteHeader');
   var onScroll = function () {
