@@ -2,7 +2,7 @@
 
 > Enterprise Data Strategy · Agentic AI Transformation · Microsoft Fabric Specialist
 
-A professional, executive-grade personal portfolio website for **Achmad Bayhaqy** — senior Data & AI Leader with 12+ years building enterprise data platforms and AI capabilities across a 3,000+ store, 7-country retail ecosystem.
+A professional, executive-grade personal portfolio for **Achmad Bayhaqy** — senior Data & AI Leader with 12+ years building enterprise data platforms and AI capabilities across a 3,000+ store, 7-country retail ecosystem.
 
 Built with **vanilla HTML, CSS, and JavaScript** — no frameworks, no build step, no dependencies. Ready to deploy on GitHub Pages.
 
@@ -10,13 +10,7 @@ Built with **vanilla HTML, CSS, and JavaScript** — no frameworks, no build ste
 
 ## Live site
 
-Once deployed via GitHub Pages, the site will be available at:
-
-```
-https://<username>.github.io/<repo-name>/
-```
-
-For a clean root URL (e.g. `https://bayhaqy.github.io/`), name the repository `<username>.github.io`.
+**https://bayhaqy.github.io/**
 
 ---
 
@@ -24,30 +18,34 @@ For a clean root URL (e.g. `https://bayhaqy.github.io/`), name the repository `<
 
 | Section | Content |
 |---|---|
-| **Hero** | Name, role, key metrics (12+ yrs, 60% cloud saving, 3,000+ stores, 200+ students/yr) |
+| **Hero** | Photo, name, role, key metrics, Download CV button |
 | **About** | Executive summary, impact stats, focus areas |
-| **Experience** | Timeline of 7 roles: MAP Active, BPKH (2x), BIG, ADINESIA, Universitas Nusa Mandiri, MAP Group, early career |
+| **Experience** | Timeline of 7 roles across enterprise, government, and education |
 | **Expertise** | 6 capability cards + 44-item technology stack |
 | **Education** | M.Kom, S.Kom, Computer Engineering diploma |
-| **Certifications** | Microsoft, AWS, Google, CEH, BNSP, MTCNA, and more |
+| **Certifications** | Microsoft, AWS, Google, CEH, BNSP, MTCNA |
 | **Publications** | 3 selected papers · SINTA ID 6762248 · ~196 Google Scholar citations |
-| **Contact** | Email, phone, LinkedIn, GitHub, blog, location |
+| **Contact** | Flowing chips — email, phone, LinkedIn, GitHub, blog, Scholar, CV download, location |
+
+A downloadable PDF CV (single-column, ATS-safe, 88 KB, 3 pages) is included at `assets/Achmad_Bayhaqy_CV_2026.pdf`.
 
 ---
 
 ## Tech stack
 
 - **HTML5** — semantic, accessible markup
-- **CSS3** — modern Grid + Flexbox, custom properties, 5 responsive breakpoints
-- **Vanilla JS (ES5-safe)** — sticky nav, mobile menu, smooth scroll, IntersectionObserver for active-section highlighting and subtle reveal-on-scroll
-- **Fonts** — Inter (sans) + Source Serif 4 (display accents), loaded from Google Fonts
-- **No build step** — push to GitHub, enable Pages, done
+- **CSS3** — Grid + Flexbox, custom properties, 4 responsive breakpoints, mobile-first
+- **Vanilla JS** — sticky nav, mobile menu, smooth scroll, IntersectionObserver for active-section + scroll reveal
+- **Fonts** — Inter (sans) + Source Serif 4 (display italics), loaded from Google Fonts
+- **PDF CV** — ReportLab with Inter TTF (embedded), single-column ATS-safe layout
+- **No build step** — push to GitHub, Pages auto-deploys
 
 ## Design language
 
-- **Palette**: Navy `#0b1f33` · Slate `#475569` · White `#ffffff` with a subtle blue accent
-- **Typography**: Inter for body/UI, Source Serif 4 for italic display accents
-- **Aesthetic**: Executive, monochrome-leaning, generous whitespace, no emoji noise, no flashy animations
+- **Palette**: White `#FFFFFF` background · Red `#B91C1C` accent (executive red, used sparingly) · Black `#111111` body
+- **Typography**: Inter (300–800) for body/UI, Source Serif 4 italic for accent quotes & publication numbers
+- **Aesthetic**: Editorial, minimalist, generous whitespace, red as a structural element (rule lines, accent borders, dot bullets) — not decoration
+- **Mobile-first**: Hero photo reflows under text on tablet, contact chips stack on mobile, nav collapses to off-canvas menu
 - **Accessibility**: Semantic landmarks, ARIA labels, keyboard-friendly nav, `prefers-reduced-motion` support, print stylesheet
 
 ---
@@ -56,126 +54,125 @@ For a clean root URL (e.g. `https://bayhaqy.github.io/`), name the repository `<
 
 ```
 .
-├── index.html      # All page content & semantic structure
-├── style.css       # Design tokens, layout, components, responsive rules
-├── script.js       # Navigation, smooth scroll, scroll-reveal, mobile menu
-└── README.md       # This file
+├── index.html              # All page content & semantic structure
+├── style.css               # Design tokens, layout, components, responsive rules
+├── script.js               # Navigation, smooth scroll, scroll-reveal, mobile menu
+├── README.md               # This file
+└── assets/
+    ├── profile.png         # Profile photo (896×1195 PNG, ~1.1 MB)
+    └── Achmad_Bayhaqy_CV_2026.pdf   # Downloadable CV (3 pages, ~88 KB, ATS-safe)
 ```
 
-No `node_modules`, no `package.json`, no bundler config. Just three static files.
+No `node_modules`, no `package.json`, no bundler config. Just three static files plus two assets.
 
 ---
 
 ## Run locally
 
-Because the site is fully static, you can open it directly:
-
 ```bash
-# Option 1 — just open the file
-open index.html        # macOS
-xdg-open index.html    # Linux
-start index.html       # Windows
+# Option 1 — open directly
+open index.html              # macOS
+xdg-open index.html          # Linux
+start index.html             # Windows
 
-# Option 2 — serve locally (recommended, avoids file:// quirks)
+# Option 2 — serve locally (recommended for accurate rendering)
 python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
 ---
 
-## Deploy to GitHub Pages
+## Regenerate the PDF CV
 
-### Option A — New repository
-
-1. Go to https://github.com/new
-2. Repository name: `bayhaqy-portfolio` (or `<username>.github.io` for a root URL)
-3. Visibility: **Public** (Pages on free tier requires public repo)
-4. Do **not** initialize with README/license/.gitignore (we'll push our own files)
-5. Click **Create repository**
-
-### Option B — Push from local
+The CV PDF is built with ReportLab from `/home/z/my-project/scripts/build_cv_pdf.py`. To regenerate after editing content:
 
 ```bash
-# From the folder containing index.html, style.css, script.js, README.md
-git init
-git add .
-git commit -m "Initial portfolio website"
-git branch -M main
-git remote add origin https://github.com/<username>/bayhaqy-portfolio.git
-git push -u origin main
+pip install reportlab pypdf
+python3 /home/z/my-project/scripts/build_cv_pdf.py
+# Output: ./Achmad_Bayhaqy_CV_2026.pdf
 ```
 
-### Enable Pages
+CV design rules:
+- **Single column** (ATS-safe — no sidebars, no tables, no text boxes)
+- **Margins**: 1.6 cm left/right, 1.4 cm top/bottom
+- **Body**: Inter Regular 10pt, leading 14.5pt
+- **Section titles**: Inter Bold 12.5pt, uppercase, with red `#B91C1C` rule below
+- **Body text color**: near-black `#111111` (not pure black — softer on eyes, ATS-readable)
+- **Accent color**: red `#B91C1C` for section rules, role bullets, and category labels
+- **3 pages** for senior executive (12+ years, multi-role) — appropriate length
 
-1. Open the repository on GitHub
-2. Go to **Settings → Pages**
-3. **Source**: Deploy from a branch
-4. **Branch**: `main` / `(root)` → **Save**
-5. Wait ~30–60 seconds, then visit the URL shown at the top of the Pages settings
+---
+
+## Deploy to GitHub Pages
+
+This site is already deployed at **https://bayhaqy.github.io/** via the `bayhaqy/bayhaqy.github.io` repository. To update:
+
+```bash
+git add .
+git commit -m "Redesign: white/red/black palette, profile photo, CV download"
+git push origin main
+```
+
+GitHub Pages auto-rebuilds on every push to `main`. Site updates within ~60 seconds.
+
+### First-time setup (for reference)
+
+1. Create a public repo named `<username>.github.io` for a root URL
+2. Push the 4 files + `assets/` folder
+3. Repo → **Settings → Pages → Source: Deploy from branch → Branch: `main` / `(root)` → Save**
 
 ---
 
 ## Customization guide
 
-All content lives in `index.html` — no data files, no CMS. Edit sections in place.
-
 ### Update personal info
 
+All content lives in `index.html`. Edit sections in place.
+
 - **Name & role**: search for `Achmad Bayhaqy` and the `hero-tagline` paragraph
-- **Contact details**: edit the `#contact` section and the `hero-card-links` block
+- **Photo**: replace `assets/profile.png` (keep 3:4 aspect ratio for best result)
+- **CV PDF**: replace `assets/Achmad_Bayhaqy_CV_2026.pdf`
 - **Metrics in hero**: edit the four `<li>` items inside `.hero-meta`
 
 ### Update styling
 
-CSS custom properties are defined at the top of `style.css`:
+CSS custom properties at the top of `style.css`:
 
 ```css
 :root {
-  --navy-900: #0b1f33;   /* primary dark */
-  --navy-800: #102a43;   /* header / footer */
-  --accent:   #2563eb;   /* links, highlights */
-  --gold:     #b08d57;   /* scholarly accents (unused by default) */
-  /* ... spacing, type scale, shadows ... */
+  --red-700:    #B91C1C;   /* primary accent */
+  --red-800:    #991B1B;   /* hover */
+  --ink:        #111111;   /* body text */
+  --ink-mute:   #6B7280;   /* metadata */
+  --paper:      #FFFFFF;   /* background */
+  --paper-alt:  #FAFAFA;   /* alternate section bg */
+  /* ... */
 }
 ```
 
 Change these once and the whole site updates.
 
-### Add a profile photo
+### Swap the accent color
 
-Replace the `AB` initials block in the hero card:
-
-```html
-<!-- Before -->
-<div class="avatar" aria-hidden="true">AB</div>
-
-<!-- After -->
-<img class="avatar" src="assets/profile.jpg" alt="Achmad Bayhaqy" />
-```
-
-Then drop `profile.jpg` into an `assets/` folder alongside `index.html`.
-
-### Add a favicon
-
-Place `favicon.ico` (or `favicon.png`) in the repo root. GitHub Pages auto-serves it. Optionally add to `<head>`:
-
-```html
-<link rel="icon" type="image/png" href="favicon.png" />
-```
+Replace `--red-700` and `--red-800` with another executive-safe color:
+- Navy `#1E3A8A` / `#1E40AF`
+- Forest green `#166534` / `#15803D`
+- Burgundy `#7F1D1D` / `#991B1B`
+- Charcoal `#1F2937` / `#111827`
 
 ---
 
 ## Browser support
 
-Tested in current versions of Chrome, Firefox, Safari, and Edge. Uses `backdrop-filter` and `IntersectionObserver` — both with safe fallbacks. Degrades gracefully on IE-less legacy browsers.
+Tested in current Chrome, Firefox, Safari, and Edge. Uses `backdrop-filter`, `aspect-ratio`, and `IntersectionObserver` — all with safe fallbacks. Print stylesheet included.
 
 ---
 
 ## Security notes
 
-- **No API keys, tokens, or credentials** are present in any file in this repository.
-- **No third-party JavaScript** is loaded — only Google Fonts (CSS) for typography.
-- **No analytics or tracking** is included by default. To add privacy-respecting analytics, consider [Plausible](https://plausible.io) or [Umami](https://umami.is) and inject their single-line snippet into the `<head>` of `index.html`.
+- **No API keys, tokens, or credentials** in any file
+- **No third-party JavaScript** — only Google Fonts (CSS) for typography
+- **No analytics or tracking** by default. To add privacy-respecting analytics, inject a Plausible/Umami snippet into the `<head>` of `index.html`
 
 ---
 
@@ -183,4 +180,4 @@ Tested in current versions of Chrome, Firefox, Safari, and Edge. Uses `backdrop-
 
 © Achmad Bayhaqy. All rights reserved.
 
-The code in this repository is provided for the personal portfolio of Achmad Bayhaqy. You are welcome to read and learn from the structure and styling, but please do not reproduce the personal content (name, biography, experience, certifications) as your own.
+The code is provided for the personal portfolio of Achmad Bayhaqy. You are welcome to read and learn from the structure and styling, but please do not reproduce the personal content (name, biography, experience, certifications, photo) as your own.
