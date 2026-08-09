@@ -1,6 +1,6 @@
 /* =================================================================
-   Achmad Bayhaqy — Portfolio v2 · Vanilla JS
-   No dependencies, no frameworks, no API keys.
+   Achmad Bayhaqy — Portfolio v4 · Vanilla JS
+   Interactive features, no dependencies, no frameworks, no API keys.
    ================================================================= */
 (function () {
   'use strict';
@@ -82,6 +82,14 @@
         Object.keys(navMap).forEach(function (key) {
           navMap[key].classList.toggle('active', key === id);
         });
+        // Update section dots too
+        var dot = document.querySelector('.section-dots a[href="#' + id + '"]');
+        if (dot) {
+          document.querySelectorAll('.section-dots a').forEach(function (d) {
+            d.classList.remove('active');
+          });
+          dot.classList.add('active');
+        }
       });
     }, {
       rootMargin: '-45% 0px -50% 0px',
@@ -92,7 +100,7 @@
 
   /* ---------- Subtle reveal on scroll (graceful) ---------- */
   var revealEls = document.querySelectorAll(
-    '.timeline-item, .expertise-card, .edu-card, .cert-group, .pub-list li, .contact-chip, .about-side .card, .hero-photo'
+    '.timeline-item, .expertise-card, .edu-card, .cert-group, .pub-list li, .contact-invite, .contact-links li, .about-side .card, .hero-photo'
   );
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     revealEls.forEach(function (el, i) {
@@ -113,13 +121,166 @@
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
 
+  /* ---------- Animated number counters (hero stats) ---------- */
+  var heroStats = document.getElementById('heroStats');
+  if (heroStats && 'IntersectionObserver' in window) {
+    var counters = heroStats.querySelectorAll('.meta-num[data-count]');
+    var animateCount = function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1400;
+      var start = null;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        el.textContent = target.toLocaleString() + suffix;
+        return;
+      }
+      var step = function (ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        // easeOutCubic
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var val = Math.floor(eased * target);
+        el.textContent = val.toLocaleString() + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target.toLocaleString() + suffix;
+        }
+      };
+      requestAnimationFrame(step);
+    };
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (c) { countObserver.observe(c); });
+  }
+
+  /* ---------- Reading progress bar ---------- */
+  var progressBar = document.getElementById('readingProgress');
+  if (progressBar) {
+    var updateProgress = function () {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    };
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+  }
+
+  /* ---------- Back to top button ---------- */
+  var backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    var toggleBackToTop = function () {
+      if (window.scrollY > 600) backToTop.classList.add('visible');
+      else backToTop.classList.remove('visible');
+    };
+    toggleBackToTop();
+    window.addEventListener('scroll', toggleBackToTop, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Section navigation dots (desktop only) ---------- */
+  var navSections = [
+    { id: 'hero', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'expertise', label: 'Expertise' },
+    { id: 'education', label: 'Education' },
+    { id: 'certifications', label: 'Certs' },
+    { id: 'publications', label: 'Publications' },
+    { id: 'contact', label: 'Contact' }
+  ];
+  if (window.innerWidth > 960) {
+    var dotsContainer = document.createElement('nav');
+    dotsContainer.className = 'section-dots';
+    dotsContainer.setAttribute('aria-label', 'Section navigation');
+    navSections.forEach(function (s) {
+      var a = document.createElement('a');
+      a.href = '#' + s.id;
+      a.setAttribute('data-label', s.label);
+      a.setAttribute('aria-label', s.label);
+      dotsContainer.appendChild(a);
+    });
+    document.body.appendChild(dotsContainer);
+    // Show after a beat
+    setTimeout(function () { dotsContainer.classList.add('visible'); }, 500);
+    // Click handlers (reuse smooth scroll)
+    dotsContainer.querySelectorAll('a').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var id = anchor.getAttribute('href');
+        if (!id || id === '#') return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.scrollY - headerOffset + 1;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+  }
+
+  /* ---------- Magnetic button effect (desktop, non-reduced-motion) ---------- */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.btn-primary, .nav-cta').forEach(function (btn) {
+      btn.classList.add('magnetic');
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.25) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- Keyboard navigation (j/k or arrow down/up) ---------- */
+  var navOrder = navSections.map(function (s) { return s.id; });
+  document.addEventListener('keydown', function (e) {
+    // Don't interfere with form inputs
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key !== 'j' && e.key !== 'k' && e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    // Only handle when not in nav toggle
+    if (navLinks && navLinks.classList.contains('open')) return;
+
+    e.preventDefault();
+    var currentScroll = window.scrollY + window.innerHeight / 2;
+    var currentIdx = 0;
+    for (var i = 0; i < navOrder.length; i++) {
+      var el = document.getElementById(navOrder[i]);
+      if (!el) continue;
+      if (el.offsetTop <= currentScroll) currentIdx = i;
+    }
+    var nextIdx;
+    if (e.key === 'j' || e.key === 'ArrowDown') {
+      nextIdx = Math.min(currentIdx + 1, navOrder.length - 1);
+    } else {
+      nextIdx = Math.max(currentIdx - 1, 0);
+    }
+    var target = document.getElementById(navOrder[nextIdx]);
+    if (target) {
+      var top = target.getBoundingClientRect().top + window.scrollY - headerOffset + 1;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  });
+
   /* ---------- CV download tracking (lightweight, no analytics SDK) ---------- */
-  var cvLink = document.querySelector('a[href*="Achmad_Bayhaqy_CV_2026.pdf"]');
-  if (cvLink) {
-    cvLink.addEventListener('click', function () {
+  var cvLinks = document.querySelectorAll('a[href*="Achmad_Bayhaqy_CV"]');
+  cvLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
       // Optional: hook into your analytics here (Plausible/Umami/GA4)
       // window.plausible && window.plausible('Download CV');
       console.log('[portfolio] CV download initiated');
     });
-  }
+  });
 })();
