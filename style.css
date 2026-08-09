@@ -94,7 +94,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .section {
   padding-block: var(--space-section);
   background: var(--paper);
-  scroll-margin-top: 100px;
+  scroll-margin-top: 140px;
 }
 .section-alt { background: var(--paper-alt); }
 .section-head { margin-bottom: 3rem; max-width: 760px; }
@@ -249,7 +249,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  scroll-margin-top: 100px;
+  scroll-margin-top: 140px;
 }
 .hero::before {
   content: "";
@@ -959,9 +959,15 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 @media (max-width: 720px) {
   .container { padding-inline: 1.25rem; }
 
+  /* Shrink sticky header on mobile for more content space */
+  .nav-wrap { height: 56px; }
+  .brand-logo { height: 30px; }
+  .nav-toggle { padding: 6px; }
+  .nav-toggle span { width: 20px; }
+
   .nav-links {
     position: fixed;
-    inset: 68px 0 auto 0;
+    inset: 56px 0 auto 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -971,7 +977,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
     box-shadow: var(--shadow-lg);
     transform: translateY(-110%);
     transition: transform .3s var(--ease);
-    max-height: calc(100vh - 68px);
+    max-height: calc(100vh - 56px);
     overflow-y: auto;
   }
   .nav-links.open { transform: translateY(0); }
@@ -990,7 +996,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   }
   .nav-toggle { display: flex; }
 
-  .hero { padding-top: 3.5rem; padding-bottom: 2.5rem; }
+  .hero { padding-top: 4.5rem; padding-bottom: 2.5rem; }
   .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
   .hero-actions .btn { width: 100%; }
   .hero-photo {
