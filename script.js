@@ -77,6 +77,11 @@
       setNav(false);
     }
   });
+  // Auto-close mobile menu on scroll (so it never covers content while reading)
+  var navCloseOnScroll = function () {
+    if (navLinks && navLinks.classList.contains('open')) setNav(false);
+  };
+  window.addEventListener('scroll', navCloseOnScroll, { passive: true });
 
   /* ---------- Smooth scroll with sticky-header offset ---------- */
   // Use 90px to account for sticky header (68px desktop / 56px mobile)
