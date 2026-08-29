@@ -1641,15 +1641,11 @@ body.iv-done .intro-veil { animation: none; }
 .fx-carbon {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(27deg, #17181C 5px, transparent 5px) 0 6px,
-    linear-gradient(207deg, #17181C 5px, transparent 5px) 12px 0,
-    linear-gradient(27deg, #1F2026 5px, transparent 5px) 0 12px,
-    linear-gradient(207deg, #1F2026 5px, transparent 5px) 12px 6px,
-    linear-gradient(90deg, #1A1B20 12px, transparent 12px),
-    linear-gradient(#1C1D23 25%, #191A1F 25%, #191A1F 50%, transparent 50%, transparent 75%, #23242B 75%, #23242B);
+  background-image: url("assets/carbon-weave.jpg");
+  background-repeat: repeat;
+  background-size: 320px 320px;
+  background-position: center top;
   background-color: #14151A;
-  background-size: 24px 24px;
 }
 [data-theme="dark"] .fx-carbon { background-color: #0D1017; }
 .fx-aurora {
