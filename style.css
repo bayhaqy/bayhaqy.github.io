@@ -1602,18 +1602,12 @@ body.iv-done .intro-veil { animation: none; }
   display: flex;
   align-items: center;
   padding-block: clamp(2.2rem, 5vw, 3.4rem) clamp(2.4rem, 5vw, 3.6rem);
-  background:
-    radial-gradient(1100px 580px at 76% -16%, rgba(185, 28, 28, .20), transparent 60%),
-    radial-gradient(880px 520px at 8% 116%, rgba(185, 28, 28, .12), transparent 55%),
-    radial-gradient(130% 100% at 50% 40%, #1D1F26 0%, #131519 52%, #0B0C0F 100%);
+  background: #111217;
   border-bottom: none;
   overflow: hidden;
 }
 [data-theme="dark"] .hero.hero-stage {
-  background:
-    radial-gradient(1100px 580px at 76% -16%, rgba(185, 28, 28, .24), transparent 60%),
-    radial-gradient(880px 520px at 8% 116%, rgba(185, 28, 28, .15), transparent 55%),
-    radial-gradient(130% 100% at 50% 40%, #131A2C 0%, #0D1220 52%, #080B13 100%);
+  background: #0B0F19;
 }
 .hero.hero-stage::before { display: none; }
 /* stage text sits on dark backdrop in BOTH themes */
@@ -1644,14 +1638,54 @@ body.iv-done .intro-veil { animation: none; }
   from { opacity: .62; transform: translate(-50%, -46%) scale(.96); }
   to   { opacity: 1;   transform: translate(-50%, -46%) scale(1.05); }
 }
-.fx-grid {
+.fx-carbon {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(241, 245, 249, .13) 1px, transparent 1.4px);
-  background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(80% 70% at 50% 44%, transparent 26%, #000 78%);
-  mask-image: radial-gradient(80% 70% at 50% 44%, transparent 26%, #000 78%);
-  opacity: .5;
+  background:
+    linear-gradient(27deg, #17181C 5px, transparent 5px) 0 6px,
+    linear-gradient(207deg, #17181C 5px, transparent 5px) 12px 0,
+    linear-gradient(27deg, #1F2026 5px, transparent 5px) 0 12px,
+    linear-gradient(207deg, #1F2026 5px, transparent 5px) 12px 6px,
+    linear-gradient(90deg, #1A1B20 12px, transparent 12px),
+    linear-gradient(#1C1D23 25%, #191A1F 25%, #191A1F 50%, transparent 50%, transparent 75%, #23242B 75%, #23242B);
+  background-color: #14151A;
+  background-size: 24px 24px;
+}
+[data-theme="dark"] .fx-carbon { background-color: #0D1017; }
+.fx-aurora {
+  position: absolute;
+  inset: -22%;
+  background:
+    radial-gradient(42% 34% at 24% 20%, rgba(220, 38, 38, .17), transparent 70%),
+    radial-gradient(38% 30% at 79% 12%, rgba(185, 28, 28, .13), transparent 72%),
+    radial-gradient(52% 42% at 60% 90%, rgba(190, 18, 60, .11), transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(6px);
+  animation: auroraDrift 16s ease-in-out infinite alternate;
+}
+[data-theme="dark"] .fx-aurora {
+  background:
+    radial-gradient(42% 34% at 24% 20%, rgba(220, 38, 38, .22), transparent 70%),
+    radial-gradient(38% 30% at 79% 12%, rgba(185, 28, 28, .17), transparent 72%),
+    radial-gradient(52% 42% at 60% 90%, rgba(190, 18, 60, .15), transparent 70%);
+}
+@keyframes auroraDrift {
+  from { transform: translate3d(-2.5%, -1.5%, 0) scale(1); }
+  to   { transform: translate3d(2.5%, 2%, 0) scale(1.06); }
+}
+.fx-sweep {
+  position: absolute;
+  inset: -2%;
+  background: linear-gradient(112deg, transparent 34%, rgba(255,255,255,.045) 46%, rgba(255,255,255,.09) 50%, rgba(255,255,255,.045) 54%, transparent 66%);
+  mix-blend-mode: screen;
+  transform: translateX(-135%) skewX(-6deg);
+  animation: beamSweep 11s cubic-bezier(.5,.1,.35,.9) infinite;
+}
+@keyframes beamSweep {
+  0%   { transform: translateX(-135%) skewX(-6deg); opacity: 0; }
+  6%   { opacity: 1; }
+  26%  { transform: translateX(135%) skewX(-6deg); opacity: 0; }
+  100% { transform: translateX(135%) skewX(-6deg); opacity: 0; }
 }
 .fx-grain {
   position: absolute;
@@ -1818,7 +1852,7 @@ body.iv-done .bc-hello { opacity: 1; transform: none; }
   line-height: 1.04;
   color: var(--ink);
 }
-.bc-name-row { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.bc-name-row { display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
 .bc-first { display: inline-block; }
 .bc-ch {
   display: inline-block;
@@ -2206,15 +2240,19 @@ body.iv-done .bc-scene { opacity: 1; transform: none; }
 }
 .bc-back-loc svg { color: var(--red-700); }
 @media (max-width: 720px) {
-  /* keep 2-col compact tiles so the flipped back never overflows the card */
-  .bc-back-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
-  .bc-back { gap: .7rem; }
-  .bc-back-eyebrow { margin-bottom: .2rem; }
-  .bc-contact { padding: .58rem 1.8rem .58rem .78rem; border-radius: 12px; }
-  .bcc-label { font-size: .56rem; letter-spacing: .12em; }
-  .bcc-value { font-size: .8rem; }
-  .bc-back-loc { padding-top: .7rem; font-size: .72rem; }
-  .bc-front { min-height: 0; }
+  /* stack both faces in one grid cell: the card adopts the height of the
+     taller face -> nothing clipped, no overflow, no height jump on flip */
+  .bc-card { display: grid; }
+  .bc-front, .bc-back { grid-area: 1 / 1; }
+  .bc-back { position: relative; inset: auto; gap: .8rem; }
+  .bc-front { justify-content: center; gap: 1.15rem; padding-block: clamp(1.5rem, 4.5vw, 1.9rem); min-height: 0; }
+  .bc-divider { justify-content: center; row-gap: .45rem; }
+  /* back: 2 compact cols, values WRAP (never truncated with ellipsis) */
+  .bc-back-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .bc-contact { padding: .6rem 1.7rem .6rem .85rem; border-radius: 13px; }
+  .bcc-label { font-size: .58rem; }
+  .bcc-value { font-size: .85rem; white-space: normal; overflow: visible; text-overflow: clip; }
+  .bc-back-loc { padding-top: .7rem; font-size: .73rem; }
 }
 
 /* ---------- Global scroll reveal ---------- */
@@ -2368,4 +2406,40 @@ body.iv-done .bc-scene { opacity: 1; transform: none; }
   .fx-glow { animation: none !important; }
   .mq { overflow-x: auto; scrollbar-width: none; }
   .mq::-webkit-scrollbar { display: none; }
+}
+
+/* =================================================================
+   V9 — expertise capability marquee (auto-run, like tech stack)
+   ================================================================= */
+.xq {
+  overflow: hidden;
+  padding-block: .6rem;
+  margin-bottom: 2.4rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.xq-track {
+  display: flex;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+  width: max-content;
+  animation: xqScroll 68s linear infinite;
+  will-change: transform;
+}
+.xq:hover .xq-track { animation-play-state: paused; }
+.xq .expertise-card {
+  flex: none;
+  width: clamp(280px, 78vw, 350px);
+}
+@keyframes xqScroll { to { transform: translateX(-50%); } }
+@media (max-width: 720px) {
+  .xq-track { gap: .9rem; padding-right: .9rem; animation-duration: 46s; }
+  .xq .expertise-card { width: min(310px, 82vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xq-track { animation: none !important; }
+  .xq { overflow-x: auto; scrollbar-width: none; }
+  .xq::-webkit-scrollbar { display: none; }
+  .fx-aurora { animation: none !important; }
+  .fx-sweep { display: none !important; }
 }
