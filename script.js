@@ -134,28 +134,9 @@
     sections.forEach(function (s) { observer.observe(s); });
   }
 
-  /* ---------- Subtle reveal on scroll (graceful) ---------- */
-  var revealEls = document.querySelectorAll(
-    '.timeline-item, .expertise-card, .edu-card, .cert-group, .cert-featured-card, .pub-card, .contact-invite, .contact-links li, .about-side .card, .hero-photo'
-  );
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    revealEls.forEach(function (el, i) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(14px)';
-      el.style.transition = 'opacity .6s cubic-bezier(0.22,0.61,0.36,1), transform .6s cubic-bezier(0.22,0.61,0.36,1)';
-      el.style.transitionDelay = Math.min(i * 40, 240) + 'ms';
-    });
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-    revealEls.forEach(function (el) { revealObserver.observe(el); });
-  }
+  /* ---------- Reveal on scroll ---------- */
+  // Handled globally by the data-reveal / IntersectionObserver system below (v6+).
+  // The legacy per-element inline-style reveal was removed to avoid double animation.
 
   /* ---------- Animated number counters (hero stats) ---------- */
   var heroStats = document.getElementById('heroStats');
@@ -541,105 +522,30 @@
     revealEls.forEach(function (el) { el.classList.add('revealed'); });
   }
 
-  /* ---------- Horizontal scroll scenes ---------- */
+  /* ---------- Experience timeline: scroll-drawn accent line ---------- */
+  // The red line over the timeline hairline draws downward as the reader
+  // scrolls through the section; timeline dots pop as their items reveal.
   if (reduceMotion) return;
 
-  var sceneList = [];
-  var isDesktop = function () { return window.innerWidth > 960; };
-
-  function buildScene(sec) {
-    var track = sec.querySelector('.hs-track');
-    var bar = sec.querySelector('.hs-progress-bar');
-    if (!track) return null;
-
-    var st = {
-      sec: sec, track: track, bar: bar,
-      top: 0, travel: 0, current: 0, target: 0,
-      raf: null, active: false, listening: false
+  var timelineEl = document.getElementById('careerTimeline');
+  if (timelineEl) {
+    var tlTicking = false;
+    var updateTl = function () {
+      tlTicking = false;
+      var r = timelineEl.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      var p = (vh * 0.78 - r.top) / Math.max(r.height, 1);
+      p = Math.min(Math.max(p, 0), 1);
+      timelineEl.style.setProperty('--tl-progress', p.toFixed(4));
     };
-
-    st.measure = function () {
-      st.top = 0;
-      var el = sec;
-      while (el) { st.top += el.offsetTop; el = el.offsetParent; }
-      st.travel = Math.max(st.track.scrollWidth - window.innerWidth, 0);
-      var speed = parseFloat(sec.getAttribute('data-speed') || '1');
-      sec.style.height = (window.innerHeight + st.travel * speed) + 'px';
-      st.update(true);
-    };
-
-    st.update = function (force) {
-      if (!st.active || !isDesktop()) return;
-      var vh = window.innerHeight;
-      var denom = (sec.offsetHeight - vh) || 1;
-      var progress = Math.min(Math.max((window.scrollY - st.top) / denom, 0), 1);
-      st.target = progress * st.travel;
-      if (force) st.current = st.target;
-      st.current += (st.target - st.current) * 0.14;
-      if (Math.abs(st.target - st.current) < 0.05) st.current = st.target;
-      st.track.style.setProperty('--tx', (-st.current).toFixed(2) + 'px');
-      if (st.bar) st.bar.style.width = (progress * 100).toFixed(2) + '%';
-      if (!force && Math.abs(st.target - st.current) > 0.05) {
-        st.raf = requestAnimationFrame(function () { st.update(); });
-      } else {
-        st.raf = null;
+    var onTlScroll = function () {
+      if (!tlTicking) {
+        tlTicking = true;
+        requestAnimationFrame(updateTl);
       }
     };
-
-    st.onScroll = function () {
-      if (st.raf === null) st.raf = requestAnimationFrame(function () { st.update(); });
-    };
-
-    st.addListener = function (on) {
-      if (on === st.listening) return;
-      st.listening = on;
-      if (on) window.addEventListener('scroll', st.onScroll, { passive: true });
-      else {
-        window.removeEventListener('scroll', st.onScroll);
-        if (st.raf !== null) { cancelAnimationFrame(st.raf); st.raf = null; }
-      }
-    };
-
-    st.sync = function () {
-      var desktop = isDesktop();
-      st.active = true;
-      sec.classList.add('hs-ready');
-      if (desktop) {
-        st.measure();
-        st.addListener(true);
-      } else {
-        // native horizontal swipe (CSS handles it); just clear JS height
-        sec.style.height = '';
-        st.track.style.removeProperty('--tx');
-        st.addListener(false);
-        if (st.bar) st.bar.style.width = '0%';
-      }
-    };
-
-    return st;
+    window.addEventListener('scroll', onTlScroll, { passive: true });
+    window.addEventListener('resize', onTlScroll);
+    updateTl();
   }
-
-  document.querySelectorAll('[data-hscroll]').forEach(function (sec) {
-    var st = buildScene(sec);
-    if (st) sceneList.push(st);
-  });
-
-  function syncAll() { sceneList.forEach(function (st) { st.sync(); }); }
-
-  var resizeTimer = null;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      syncAll();
-    }, 160);
-  });
-
-  // cert badge images change track width as they load — re-measure
-  window.addEventListener('load', function () {
-    sceneList.forEach(function (st) {
-      if (isDesktop()) st.measure();
-    });
-  });
-
-  syncAll();
 })();
