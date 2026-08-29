@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=20260829a" />
+  <link rel="stylesheet" href="style.css?v=20260829b" />
   <script>
     // Prevent theme flash: load saved theme before CSS renders
     (function() {
@@ -121,7 +121,8 @@
   <!-- ============ INTRO VEIL (page-load transition) ============ -->
   <div class="intro-veil" id="introVeil" aria-hidden="true">
     <span class="iv-line iv-line-top"></span>
-    <span class="iv-mark">A&middot;B</span>
+    <img class="iv-logo iv-logo-light" src="assets/logo.png" alt="" width="132" height="59" />
+    <img class="iv-logo iv-logo-dark" src="assets/logo-light.png" alt="" width="132" height="59" />
     <span class="iv-line iv-line-bottom"></span>
   </div>
   <noscript><style>.intro-veil{display:none!important}.bc-ch,.bc-surname{opacity:1!important;transform:none!important}</style></noscript>
@@ -138,7 +139,7 @@
         <a href="#experience">Experience</a>
         <a href="#expertise">Expertise</a>
         <a href="#education">Education</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+        <a href="#hero" class="nav-cta" data-flip-contact>Contact</a>
       </nav>
 
       <div class="nav-extras">
@@ -150,7 +151,7 @@
   </header>
 
   <main>
-    <!-- ============ HERO — BUSINESS CARD ============ -->
+        <!-- ============ HERO — BUSINESS CARD ============ -->
     <section id="hero" class="hero hero-stage">
       <div class="hero-fx" aria-hidden="true">
         <div class="fx-glow"></div>
@@ -170,13 +171,13 @@
                 <span class="bc-sheen" aria-hidden="true"></span>
                 <span class="bc-edge" aria-hidden="true"></span>
 
-                <button class="bc-flip" id="bcFlip" type="button" aria-label="Flip business card" aria-pressed="false" title="Flip card">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <button class="bc-flip" id="bcFlip" type="button" aria-label="Flip business card to see contacts" aria-pressed="false" title="Flip card">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                 </button>
 
                 <div class="bc-head">
                   <div class="bc-photo">
-                    <img src="assets/profile.png" alt="Portrait of Achmad Bayhaqy" width="184" height="224" />
+                    <img src="assets/profile.png" alt="Portrait of Achmad Bayhaqy" width="264" height="352" />
                   </div>
                   <div class="bc-id">
                     <h1 class="bc-name">
@@ -185,8 +186,8 @@
                     </h1>
                     <p class="bc-role">IT Solutions Leader</p>
                     <p class="bc-loc">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                      Jakarta, Indonesia &middot; MAP Active
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      Jakarta, Indonesia
                     </p>
                   </div>
                 </div>
@@ -198,51 +199,72 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Download CV
                   </a>
-                  <a href="#contact" class="btn btn-ghost">Get in touch</a>
-                </div>
-
-                <div class="bc-foot">
-                  <span class="bc-domain">bayhaqy.my.id</span>
-                  <span class="bc-status"><span class="bc-dot" aria-hidden="true"></span>Open to collaborate</span>
+                  <button type="button" class="btn btn-ghost" id="bcFlipHint">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    Flip for contacts
+                  </button>
                 </div>
               </div>
 
-              <!-- BACK -->
+              <!-- BACK — contacts only -->
               <div class="bc-face bc-back" id="bcBack" aria-hidden="true">
                 <span class="bc-sheen" aria-hidden="true"></span>
 
-                <div class="bc-back-head">
-                  <span class="bc-monogram" aria-hidden="true">AB</span>
-                  <div class="bc-back-title">
-                    <strong>Achmad Bayhaqy</strong>
-                    <small>IT Solutions Leader &middot; Jakarta</small>
-                  </div>
+                <button class="bc-flip" id="bcFlipBack" type="button" aria-label="Flip back to profile" title="Flip back">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+
+                <p class="bc-back-eyebrow">Let&rsquo;s connect</p>
+
+                <div class="bc-back-grid">
+                  <a class="bc-contact" href="https://www.linkedin.com/in/achmad-bayhaqy" target="_blank" rel="noopener">
+                    <span class="bcc-label">LinkedIn</span>
+                    <span class="bcc-value">/in/achmad-bayhaqy</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://github.com/bayhaqy" target="_blank" rel="noopener">
+                    <span class="bcc-label">GitHub</span>
+                    <span class="bcc-value">github.com/bayhaqy</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener">
+                    <span class="bcc-label">Google Scholar</span>
+                    <span class="bcc-value">~196 citations &middot; SINTA 6762248</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://blog.bayhaqy.my.id" target="_blank" rel="noopener">
+                    <span class="bcc-label">Blog</span>
+                    <span class="bcc-value">blog.bayhaqy.my.id</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://bayhaqy.my.id/apps" target="_blank" rel="noopener">
+                    <span class="bcc-label">Apps</span>
+                    <span class="bcc-value">bayhaqy.my.id/apps</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://bayhaqy.my.id/kids" target="_blank" rel="noopener">
+                    <span class="bcc-label">Kids</span>
+                    <span class="bcc-value">bayhaqy.my.id/kids</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                  <a class="bc-contact" href="https://bayhaqy.my.id/games" target="_blank" rel="noopener">
+                    <span class="bcc-label">Games</span>
+                    <span class="bcc-value">bayhaqy.my.id/games</span>
+                    <span class="bcc-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
                 </div>
 
-                <ul class="bc-links">
-                  <li><a href="https://www.linkedin.com/in/achmad-bayhaqy" target="_blank" rel="noopener"><span>LinkedIn</span><em>/in/achmad-bayhaqy</em></a></li>
-                  <li><a href="https://github.com/bayhaqy" target="_blank" rel="noopener"><span>GitHub</span><em>github.com/bayhaqy</em></a></li>
-                  <li><a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener"><span>Scholar</span><em>~196 citations &middot; SINTA 6762248</em></a></li>
-                  <li><a href="https://blog.bayhaqy.my.id" target="_blank" rel="noopener"><span>Blog</span><em>blog.bayhaqy.my.id</em></a></li>
-                  <li><a href="https://bayhaqy.my.id/apps" target="_blank" rel="noopener"><span>Apps</span><em>bayhaqy.my.id/apps</em></a></li>
-                </ul>
-
-                <div class="bc-back-foot">
-                  <a href="assets/Achmad_Bayhaqy_CV.pdf" class="bc-cvlink" download>Download CV (PDF)</a>
-                  <button class="bc-flip-back" id="bcFlipBack" type="button">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                    Flip back
-                  </button>
-                </div>
+                <p class="bc-back-loc">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Central Jakarta &middot; Remote-friendly
+                </p>
               </div>
 
             </div>
           </div>
         </div>
 
-        <p class="bc-tagline">Twelve years turning complex technology into measurable business value &mdash; across a 3,000+ store, 7-country retail ecosystem.</p>
-
-        <ul class="hero-meta" id="heroStats">
+        <ul class="hero-meta" id="heroStats" data-reveal>
           <li><span class="meta-num" data-count="12" data-suffix="+">0</span><span class="meta-label">Years in IT &amp; Data</span></li>
           <li><span class="meta-num" data-count="60" data-suffix="%">0</span><span class="meta-label">Cloud cost reduction</span></li>
           <li><span class="meta-num" data-count="3000" data-suffix="+">0</span><span class="meta-label">Stores served</span></li>
@@ -254,34 +276,29 @@
     <!-- ============ ABOUT ============ -->
     <section id="about" class="section">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head" data-reveal>
           <p class="section-eyebrow">01 — About</p>
           <h2 class="section-title">Bridging complex technology and business value</h2>
         </header>
 
         <div class="about-grid">
-          <div class="about-body">
+          <div class="about-body" data-reveal>
             <p>
-              I am a senior IT solutions leader with more than a decade of experience designing
-              end-to-end technology stacks — spanning enterprise data platforms, Agentic AI, cloud
-              infrastructure, security operations, and automation. My work covers the full spectrum:
-              from network and endpoint engineering to medallion lakehouse architecture, semantic
-              modelling, and multi-vendor Agentic AI running in production.
+              I design and lead end-to-end technology stacks — enterprise data platforms, Agentic AI,
+              cloud infrastructure, security operations, and automation. My scope runs the full
+              spectrum: from network and endpoint engineering to medallion lakehouse architecture,
+              semantic modelling, and multi-vendor Agentic AI running in production.
             </p>
             <p>
-              At MAP Active, I lead IT and data strategy for a retail ecosystem of 3,000+ stores
-              across 7+ countries. I recently led the migration to a modern Microsoft Fabric
-              lakehouse, delivering a 60% cloud cost reduction and 50% faster reporting for 15+
-              stakeholder teams. Beyond data, I oversee infrastructure modernisation, security
-              operations (CrowdStrike, Fortigate, IBM QRadar), and enterprise automation with Power
-              Platform and UiPath — and champion multi-vendor Agentic AI for creative intelligence,
-              location analytics, and document understanding.
+              At MAP Active I lead IT and data strategy for a retail ecosystem spanning 3,000+ stores
+              across 7+ countries. A recent Microsoft Fabric lakehouse migration cut cloud costs by
+              more than half while lifting reporting speed for 15+ stakeholder teams — alongside
+              infrastructure modernisation, security operations, and enterprise-wide automation.
             </p>
             <p>
-              Beyond the corporate role, I teach Data Science at Universitas Nusa Mandiri,
-              mentoring students on end-to-end ML projects. I have also contributed as a
-              national-level consultant for BPKH and the Indonesian Geospatial Information
-              Agency (BIG), and as a published researcher in NLP and recommendation systems.
+              Beyond the corporate role, I teach Data Science at Universitas Nusa Mandiri, advise BPKH
+              and the Indonesian Geospatial Information Agency as a national-level consultant, and
+              publish research in NLP and recommendation systems.
             </p>
             <p class="about-quote">
               My focus is simple: architect IT systems that are scalable, secure, and useful — and
@@ -329,723 +346,397 @@
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
-    <section id="experience" class="section section-alt">
-      <div class="container">
-        <header class="section-head">
+        <!-- ============ EXPERIENCE — HORIZONTAL ============ -->
+    <section id="experience" class="section section-alt hscroll" data-hscroll data-speed="1">
+      <div class="hs-stage">
+        <header class="hs-head" data-reveal>
           <p class="section-eyebrow">02 — Experience</p>
-          <h2 class="section-title">A track record across enterprise, government, and education</h2>
+          <h2 class="section-title">Leadership across enterprise, government, and academia</h2>
+          <div class="hs-progress" aria-hidden="true"><span class="hs-progress-bar"></span></div>
         </header>
 
-        <div class="timeline">
+        <div class="hs-viewport">
+          <div class="hs-track">
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">Jan 2024 — Present</span>
-              <span class="timeline-org">PT MAP Active Adiperkasa Tbk · Jakarta</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">Information Technology Manager — Data &amp; AI</h3>
-              <p class="role-period">Mar 2026 — Present · previously IT Data Associates Manager (Jan 2024 — Feb 2026)</p>
-              <p>
-                Architect and govern the enterprise IT, data, and AI strategy for a 7-country, 3,000+
-                store retail ecosystem. Lead and mentor a core team of data engineers and analysts serving
-                15+ business stakeholder groups across Operations, Merchandise, Supply Chain, Audit,
-                HR, Finance, COE, and Marketing — while overseeing infrastructure, security, and
-                automation initiatives.
-              </p>
-              <ul class="role-bullets">
-                <li>Champion Agentic AI transformation across a multi-vendor stack — Microsoft Foundry, AWS Bedrock, Google Vertex AI, Claude AI, and Gemini.</li>
-                <li>Lead AI Data Agent (MCP) deployment and CRISP-DM MLOps for demand forecasting and predictive modelling across merchandising and supply chain.</li>
-                <li>Delivered 60%+ cloud cost reduction by migrating to a modern Microsoft Fabric lakehouse; 50%+ faster reporting through Direct Lake medallion architecture.</li>
-                <li>Governed data access for 500+ users across 7+ countries through RLS / CLS / OLS models spanning 500+ brands.</li>
-                <li>Sustain 99.9%+ uptime SLA for mission-critical reporting; define long-term roadmap to decommission legacy systems.</li>
+            <article class="hs-card hs-card-featured" data-reveal>
+              <span class="hs-chip">Jan 2024 — Present</span>
+              <p class="hs-org">PT MAP Active Adiperkasa Tbk &middot; Jakarta</p>
+              <h3 class="hs-role">IT Manager — Data &amp; AI</h3>
+              <p class="hs-text">Architect and govern the enterprise IT, data, and AI strategy for a 7-country, 3,000+ store retail ecosystem — leading data engineers and analysts who serve 15+ business stakeholder groups.</p>
+              <ul class="hs-list">
+                <li>Champion multi-vendor Agentic AI: Microsoft Foundry, AWS Bedrock, Google Vertex AI, Claude, and Gemini.</li>
+                <li>Delivered a 60%+ cloud cost reduction through a modern Microsoft Fabric lakehouse; 50% faster reporting.</li>
+                <li>Govern data access for 500+ users across 7+ countries; sustain a 99.9%+ uptime SLA.</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">Jan 2025 — Nov 2025</span>
-              <span class="timeline-org">BPKH (Badan Pengelola Keuangan Haji) · Consulting</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">Tenaga Ahli Sistem Kemaslahatan — Welfare System Expert</h3>
-              <p>
-                Spearheaded the digitalisation of the Welfare Management System (SIM Kemaslahatan),
-                migrating manual Excel-based workflows into a centralised Laravel web application.
-              </p>
-              <ul class="role-bullets">
-                <li>Defined system requirements and architectural solutions; ensured successful project delivery with the development team.</li>
-                <li>Conducted stakeholder training and onboarding for BPKH officials, members of the Indonesian Parliament (DPR), and partner foundations / NGOs.</li>
-                <li>Built near-real-time internal reporting from PostgreSQL to Google Sheets via 15-minute cron jobs, enriched with Google Apps Script and visualised in Looker Studio.</li>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">Jan 2025 — Nov 2025</span>
+              <p class="hs-org">BPKH — Badan Pengelola Keuangan Haji &middot; Consulting</p>
+              <h3 class="hs-role">Welfare System Expert</h3>
+              <p class="hs-text">Led the digitalisation of the Welfare Management System (SIM Kemaslahatan) — replacing manual Excel workflows with a centralised Laravel web application.</p>
+              <ul class="hs-list">
+                <li>Defined requirements and architecture; drove delivery with the development team.</li>
+                <li>Trained BPKH officials, parliament members, and partner foundations.</li>
+                <li>Built near-real-time reporting: PostgreSQL to Looker Studio on 15-minute syncs.</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">Jul 2024 — Nov 2024</span>
-              <span class="timeline-org">Badan Informasi Geospasial (BIG) · Indonesia</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">Assistant Tenaga Ahli Sistem Produksi — Production Systems Expert Assistant</h3>
-              <ul class="role-bullets">
-                <li>Conducted strategic assessments and provided technical recommendations for production system implementation at new server sites.</li>
-                <li>Benchmarked technology solutions and collaborated on scalable system architectures based on rigorous technology evaluations.</li>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">Jul 2024 — Nov 2024</span>
+              <p class="hs-org">Badan Informasi Geospasial (BIG) &middot; Indonesia</p>
+              <h3 class="hs-role">Production Systems Expert — Assistant</h3>
+              <p class="hs-text">Strategic assessment and technical advisory for national production-system rollouts.</p>
+              <ul class="hs-list">
+                <li>Assessed readiness and recommended implementation paths for new server sites.</li>
+                <li>Benchmarked solutions and co-designed scalable system architectures.</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">Aug 2020 — Jan 2026</span>
-              <span class="timeline-org">Universitas Nusa Mandiri · Jakarta</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">Lecturer in Data Science</h3>
-              <p>
-                Designed project-based curricula in Machine Learning, LLMs (GPT, Gemini, Hugging Face
-                Transformers), MLOps, and web frameworks (Streamlit, Gradio, Flask, FastAPI). Mentored
-                20+ students through end-to-end ML projects from prototyping to deployment
-                on Hugging Face Spaces and Streamlit Cloud.
-              </p>
-              <ul class="role-bullets">
-                <li>Supervised three capstone tracks: real-time news sentiment analysis, Google Play Store review sentiment, and real-time stock price forecasting (LSTM).</li>
-                <li>Published academic research in NLP, sentiment analysis, and recommendation systems — SINTA ID 6762248, ~196 Google Scholar citations.</li>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">Aug 2020 — Jan 2026</span>
+              <p class="hs-org">Universitas Nusa Mandiri &middot; Jakarta</p>
+              <h3 class="hs-role">Lecturer in Data Science</h3>
+              <p class="hs-text">Designed project-based curricula in Machine Learning, LLMs, MLOps, and deployment frameworks (Streamlit, Gradio, Flask, FastAPI); mentored 20+ students from prototype to production.</p>
+              <ul class="hs-list">
+                <li>Supervised capstones: news sentiment, app-review sentiment, and LSTM stock forecasting.</li>
+                <li>Published research in NLP and recommender systems — ~196 Scholar citations.</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">Jun 2014 — Dec 2023</span>
-              <span class="timeline-org">PT Mitra Adiperkasa Tbk (MAP Group) · Jakarta</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">IT Associate Manager — Infrastructure</h3>
-              <p class="role-period">Mar 2023 — Dec 2023 · previously IT Technical Lead (Feb 2019 — Feb 2023) and earlier roles (2014 — 2019)</p>
-              <ul class="role-bullets">
-                <li>Delivered enterprise infrastructure projects: SolarWinds NCM, HCL BigFix, CrowdStrike, SOTI MobiControl, Trend Micro Mobile Security, Fortigate / FortiToken, BMC Asset Management.</li>
-                <li>Built Power BI dashboards for IT asset management and BMC ticketing; implemented RPA workflows using UiPath.</li>
-                <li>Led R&amp;D and delivery of IBM QRadar Security Intelligence, HCL BigFix endpoint management, and Smart Mikrotik.</li>
-                <li>Reconfigured network and IT infrastructure for MAPActive Thailand; implemented VPN IP Sec (Fortigate HO to Mikrotik) for Starbucks stores; supported 1,500+ PCs across all MAP stores.</li>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">Jun 2014 — Dec 2023</span>
+              <p class="hs-org">PT Mitra Adiperkasa (MAP Group) &middot; Jakarta</p>
+              <h3 class="hs-role">IT Associate Manager — Infrastructure</h3>
+              <p class="hs-text">Progressed from engineering roles to Associate Manager, delivering enterprise infrastructure and security programmes for 1,500+ endpoints.</p>
+              <ul class="hs-list">
+                <li>Delivered CrowdStrike, IBM QRadar, HCL BigFix, Fortigate, and SOTI deployments.</li>
+                <li>Built Power BI asset-management dashboards; automated operations with UiPath RPA.</li>
+                <li>Reconfigured network infrastructure for MAP Active Thailand and Starbucks stores.</li>
               </ul>
-            </div>
-          </article>
+            </article>
 
-          <article class="timeline-item">
-            <div class="timeline-meta">
-              <span class="timeline-period">2010 — 2014</span>
-              <span class="timeline-org">Earlier career</span>
-            </div>
-            <div class="timeline-body">
-              <h3 class="role-title">IT Project Engineer · Assistant Instructor · ATM Operations</h3>
-              <p>
-                IT Project Engineer at PT. Kahar Duta Sarana (2013 — 2014): rolled out ETP application
-                upgrades and database migrations across all MAP stores nationwide. Assistant Instructor
-                at Bina Sarana Informatika (2013): taught networking, Windows Server administration,
-                virtualisation, and C# programming. ATM Operations at PT. Armorindo Artha (2010 — 2012):
-                monitored ATM operations for BCA, BII, Mandiri, and Bank DKI; coordinated vendor
-                resolution (Hyosung, Diebold, Wincor).
-              </p>
-            </div>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">2010 — 2014</span>
+              <p class="hs-org">Earlier career</p>
+              <h3 class="hs-role">Engineer &middot; Instructor &middot; Operations</h3>
+              <p class="hs-text">IT Project Engineer at PT Kahar Duta Sarana — ETP application upgrades and database migrations nationwide. Assistant Instructor at Bina Sarana Informatika — networking, Windows Server, and C#. ATM Operations at PT Armorindo Artha — monitored BCA, BII, Mandiri, and Bank DKI fleets.</p>
+            </article>
 
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ EXPERTISE ============ -->
-    <section id="expertise" class="section">
-      <div class="container">
-        <header class="section-head">
+        <!-- ============ EXPERTISE — HORIZONTAL + TECH MARQUEE ============ -->
+    <section id="expertise" class="section hscroll" data-hscroll data-speed="1">
+      <div class="hs-stage">
+        <header class="hs-head" data-reveal>
           <p class="section-eyebrow">03 — Expertise</p>
-          <h2 class="section-title">Core capability and technology stack</h2>
+          <h2 class="section-title">Capabilities &amp; technology stack</h2>
+          <div class="hs-progress" aria-hidden="true"><span class="hs-progress-bar"></span></div>
         </header>
 
-        <div class="expertise-grid">
+        <div class="hs-viewport">
+          <div class="hs-track">
 
-          <article class="card expertise-card">
-            <h3>Strategy &amp; Leadership</h3>
-            <p>Data and AI strategy, team building and mentoring, stakeholder management (15+ teams, C-suite to operations), Agile / Azure DevOps, change management, vendor and platform selection.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">01</span>
+              <h3 class="hs-role">Strategy &amp; Leadership</h3>
+              <p class="hs-text">Data and AI strategy, team building and mentoring, stakeholder management across C-suite to operations (15+ teams), Agile / Azure DevOps, change management, and vendor selection.</p>
+            </article>
 
-          <article class="card expertise-card">
-            <h3>AI &amp; Agentic Systems</h3>
-            <p>Agentic AI across Microsoft Foundry, AWS Bedrock, Google Vertex AI, Claude AI, and Gemini. Fabric AI Agent (MCP), MLOps with CRISP-DM, LLM productionisation, Hugging Face, OpenAI GPT, AI governance.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">02</span>
+              <h3 class="hs-role">AI &amp; Agentic Systems</h3>
+              <p class="hs-text">Agentic AI on Microsoft Foundry, AWS Bedrock, Google Vertex AI, Claude, and Gemini. Fabric AI Agent (MCP), MLOps with CRISP-DM, LLM productionisation, and AI governance.</p>
+            </article>
 
-          <article class="card expertise-card">
-            <h3>Data Engineering</h3>
-            <p>Modern lakehouse and medallion architecture, Microsoft Fabric, Power BI Direct Lake, SSIS, PySpark, Python, SQL, Azure Synapse, ETL / ELT pipelines, DAX / M.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">03</span>
+              <h3 class="hs-role">Data Engineering</h3>
+              <p class="hs-text">Modern lakehouse and medallion architecture on Microsoft Fabric, Power BI Direct Lake, PySpark, SQL, Azure Synapse, and ETL / ELT pipeline design.</p>
+            </article>
 
-          <article class="card expertise-card">
-            <h3>Security &amp; Governance</h3>
-            <p>Row-Level, Object-Level, and Column-Level Security (RLS / CLS / OLS) for 500+ users across 7+ countries and 500+ brands. Data cataloguing, CrowdStrike, Fortigate, Docker, Kubernetes.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">04</span>
+              <h3 class="hs-role">Security &amp; Governance</h3>
+              <p class="hs-text">Row-, Object-, and Column-Level Security for 500+ users across 7+ countries and 500+ brands — plus data cataloguing, CrowdStrike, Fortigate, Docker, and Kubernetes.</p>
+            </article>
 
-          <article class="card expertise-card">
-            <h3>Automation &amp; BI</h3>
-            <p>Power Automate, Power Apps, Power BI Embedded, SharePoint, RPA (UiPath), Azure DevOps CI/CD, Google Looker Studio, self-service analytics enablement.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">05</span>
+              <h3 class="hs-role">Automation &amp; BI</h3>
+              <p class="hs-text">Power Automate, Power Apps, Power BI Embedded, SharePoint, RPA with UiPath, Azure DevOps CI/CD, and self-service analytics enablement.</p>
+            </article>
 
-          <article class="card expertise-card">
-            <h3>Engineering &amp; Cloud</h3>
-            <p>Python, FastAPI, Streamlit, Gradio, Flask, C#, Google Apps Script. Docker, Kubernetes, VMware, AWS, GCP, Alibaba Cloud, Mikrotik, Cisco.</p>
-          </article>
+            <article class="hs-card" data-reveal>
+              <span class="hs-chip">06</span>
+              <h3 class="hs-role">Engineering &amp; Cloud</h3>
+              <p class="hs-text">Python, FastAPI, Streamlit, Gradio, Flask, and C# — deployed on AWS, GCP, and Alibaba Cloud with Docker, Kubernetes, VMware, Mikrotik, and Cisco networking.</p>
+            </article>
 
+          </div>
         </div>
 
-        <div class="tech-stack">
-          <h3 class="tech-stack-title">Technology stack</h3>
-          <ul class="tag-list" aria-label="Technology stack">
-            <li>Microsoft Fabric</li>
-            <li>Power BI</li>
-            <li>Azure Synapse</li>
-            <li>Azure DevOps</li>
-            <li>Direct Lake</li>
-            <li>Medallion / Lakehouse</li>
-            <li>PySpark</li>
-            <li>Python</li>
-            <li>SQL (T-SQL)</li>
-            <li>DAX / M</li>
-            <li>SSIS</li>
-            <li>Microsoft Foundry</li>
-            <li>AWS Bedrock</li>
-            <li>Google Vertex AI</li>
-            <li>Claude AI</li>
-            <li>Gemini</li>
-            <li>OpenAI GPT</li>
-            <li>Hugging Face</li>
-            <li>LLM</li>
-            <li>AI Agents</li>
-            <li>CRISP-DM</li>
-            <li>MLOps</li>
-            <li>FastAPI</li>
-            <li>Streamlit</li>
-            <li>Gradio</li>
-            <li>Flask</li>
-            <li>C#</li>
-            <li>Docker</li>
-            <li>Kubernetes</li>
-            <li>AWS</li>
-            <li>GCP</li>
-            <li>Alibaba Cloud</li>
-            <li>Power Automate</li>
-            <li>Power Apps</li>
-            <li>UiPath</li>
-            <li>Looker Studio</li>
-            <li>Google Apps Script</li>
-            <li>CrowdStrike</li>
-            <li>Fortigate</li>
-            <li>Mikrotik</li>
-            <li>Cisco</li>
-            <li>VMware ESXi</li>
-            <li>Hyper-V</li>
-          </ul>
+        <div class="hs-marquee" data-marquee aria-hidden="true">
+          <div class="hs-marquee-track">
+            <span>Microsoft Fabric</span><span>Power BI</span><span>Azure Synapse</span><span>Azure DevOps</span><span>Direct Lake</span><span>Medallion / Lakehouse</span><span>PySpark</span><span>Python</span><span>SQL (T-SQL)</span><span>DAX / M</span><span>SSIS</span><span>Microsoft Foundry</span><span>AWS Bedrock</span><span>Google Vertex AI</span><span>Claude AI</span><span>Gemini</span><span>OpenAI GPT</span><span>Hugging Face</span><span>AI Agents</span><span>MLOps</span><span>CRISP-DM</span><span>FastAPI</span><span>Streamlit</span><span>Gradio</span><span>Flask</span><span>C#</span><span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span><span>Alibaba Cloud</span><span>Power Automate</span><span>Power Apps</span><span>UiPath</span><span>Looker Studio</span><span>Google Apps Script</span><span>CrowdStrike</span><span>Fortigate</span><span>Mikrotik</span><span>Cisco</span><span>VMware ESXi</span><span>Hyper-V</span>
+            <span>Microsoft Fabric</span><span>Power BI</span><span>Azure Synapse</span><span>Azure DevOps</span><span>Direct Lake</span><span>Medallion / Lakehouse</span><span>PySpark</span><span>Python</span><span>SQL (T-SQL)</span><span>DAX / M</span><span>SSIS</span><span>Microsoft Foundry</span><span>AWS Bedrock</span><span>Google Vertex AI</span><span>Claude AI</span><span>Gemini</span><span>OpenAI GPT</span><span>Hugging Face</span><span>AI Agents</span><span>MLOps</span><span>CRISP-DM</span><span>FastAPI</span><span>Streamlit</span><span>Gradio</span><span>Flask</span><span>C#</span><span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span><span>Alibaba Cloud</span><span>Power Automate</span><span>Power Apps</span><span>UiPath</span><span>Looker Studio</span><span>Google Apps Script</span><span>CrowdStrike</span><span>Fortigate</span><span>Mikrotik</span><span>Cisco</span><span>VMware ESXi</span><span>Hyper-V</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ EDUCATION & CREDENTIALS ============ -->
-    <section id="education" class="section section-alt">
-      <div class="container">
-        <header class="section-head">
+        <!-- ============ EDUCATION & CREDENTIALS — HORIZONTAL ============ -->
+    <section id="education" class="section section-alt hscroll" data-hscroll data-speed="0.85">
+      <div class="hs-stage">
+        <header class="hs-head" data-reveal>
           <p class="section-eyebrow">04 — Education &amp; Credentials</p>
-          <h2 class="section-title">Academic foundation, certifications, and publications</h2>
-          <p class="section-sub">
-            A consolidated view of formal education, industry-recognised credentials, and peer-reviewed research.
-          </p>
+          <h2 class="section-title">Education, credentials &amp; research</h2>
+          <div class="hs-progress" aria-hidden="true"><span class="hs-progress-bar"></span></div>
         </header>
 
-        <!-- 4a. Academic foundation -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Academic foundation</h3>
-        </div>
-        <div class="edu-grid">
-          <article class="card edu-card">
-            <span class="edu-period">2017 — 2019</span>
-            <h3>Master of Computer Science (M.Kom)</h3>
-            <p class="edu-school">Universitas Nusa Mandiri</p>
-            <p class="edu-note">
-              Thesis: Sentiment Analysis with Automatic Labeling using VADER on Islamophobia in
-              Social Media.
-            </p>
-          </article>
+        <div class="hs-viewport">
+          <div class="hs-track">
 
-          <article class="card edu-card">
-            <span class="edu-period">2015 — 2016</span>
-            <h3>Bachelor of Computer Science (S.Kom)</h3>
-            <p class="edu-school">Universitas Nusa Mandiri · Information Technology</p>
-          </article>
+            <!-- Academic -->
+            <article class="hs-card hs-card-tight" data-reveal>
+              <span class="hs-chip">Academic &middot; 2017 — 2019</span>
+              <h3 class="hs-role">Master of Computer Science (M.Kom)</h3>
+              <p class="hs-org">Universitas Nusa Mandiri</p>
+              <p class="hs-text">Thesis: Sentiment Analysis with Automatic Labeling using VADER on Islamophobia in Social Media.</p>
+            </article>
 
-          <article class="card edu-card">
-            <span class="edu-period">2011 — 2014</span>
-            <h3>Computer Engineering</h3>
-            <p class="edu-school">Bina Sarana Informatika · Salemba, Jakarta</p>
-          </article>
-        </div>
+            <article class="hs-card hs-card-tight" data-reveal>
+              <span class="hs-chip">Academic &middot; 2015 — 2016</span>
+              <h3 class="hs-role">Bachelor of Computer Science (S.Kom)</h3>
+              <p class="hs-org">Universitas Nusa Mandiri &middot; Information Technology</p>
+            </article>
 
-        <!-- 4b. Featured credentials (Microsoft Fabric) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Featured credentials</h3>
-          <p class="edu-subhead-note">
-            Click any badge image or &ldquo;Verify&rdquo; link to open the official issuer record. Full list on
-            <a href="https://www.linkedin.com/in/achmad-bayhaqy/details/certifications/" target="_blank" rel="noopener" class="inline-link">LinkedIn</a>.
-          </p>
-        </div>
-        <div class="cert-featured">
+            <article class="hs-card hs-card-tight" data-reveal>
+              <span class="hs-chip">Academic &middot; 2011 — 2014</span>
+              <h3 class="hs-role">Computer Engineering</h3>
+              <p class="hs-org">Bina Sarana Informatika &middot; Salemba, Jakarta</p>
+            </article>
 
-          <article class="card cert-featured-card">
-            <a class="cert-featured-img" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/50D7DC2773035DBF?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener" aria-label="Verify Microsoft Fabric Data Engineer Associate credential">
-              <img src="assets/certs/dp-600.jpeg" alt="Microsoft Certified: Fabric Data Engineer Associate (DP-700)" loading="lazy" />
-            </a>
-            <div class="cert-featured-body">
-              <span class="cert-featured-tag">Microsoft · DP-700</span>
-              <h3 class="cert-featured-title">Fabric Data Engineer Associate</h3>
-              <p class="cert-featured-desc">
-                End-to-end data engineering on Microsoft Fabric: lakehouse, medallion architecture,
-                data pipelines, and Direct Lake semantics for production analytics.
-              </p>
-              <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/50D7DC2773035DBF?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener">
-                Verify credential
-                <span aria-hidden="true">&#8599;</span>
+            <!-- Featured Microsoft credentials -->
+            <article class="hs-cert hs-cert-wide" data-reveal>
+              <a class="hs-cert-img" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/50D7DC2773035DBF?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener" aria-label="Verify Microsoft Fabric Data Engineer Associate credential">
+                <img src="assets/certs/dp-700.jpeg" alt="Microsoft Certified: Fabric Data Engineer Associate (DP-700)" loading="lazy" />
               </a>
-            </div>
-          </article>
+              <span class="hs-chip">Microsoft &middot; DP-700</span>
+              <h3 class="hs-cert-title">Fabric Data Engineer Associate</h3>
+              <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/50D7DC2773035DBF?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener">Verify credential <span aria-hidden="true">&#8599;</span></a>
+            </article>
 
-          <article class="card cert-featured-card">
-            <a class="cert-featured-img" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/D8010C998119D00B?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener" aria-label="Verify Microsoft Fabric Analytics Engineer Associate credential">
-              <img src="assets/certs/dp-700.jpeg" alt="Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)" loading="lazy" />
-            </a>
-            <div class="cert-featured-body">
-              <span class="cert-featured-tag">Microsoft · DP-600</span>
-              <h3 class="cert-featured-title">Fabric Analytics Engineer Associate</h3>
-              <p class="cert-featured-desc">
-                Analytics engineering on Fabric: semantic modelling, Direct Lake, Power BI
-                governance, and analytics solution design across 500+ business users.
-              </p>
-              <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/D8010C998119D00B?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener">
-                Verify credential
-                <span aria-hidden="true">&#8599;</span>
+            <article class="hs-cert hs-cert-wide" data-reveal>
+              <a class="hs-cert-img" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/D8010C998119D00B?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener" aria-label="Verify Microsoft Fabric Analytics Engineer Associate credential">
+                <img src="assets/certs/dp-600.jpeg" alt="Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)" loading="lazy" />
               </a>
-            </div>
-          </article>
+              <span class="hs-chip">Microsoft &middot; DP-600</span>
+              <h3 class="hs-cert-title">Fabric Analytics Engineer Associate</h3>
+              <a class="verify-link" href="https://learn.microsoft.com/api/credentials/share/en-us/AchmadBayhaqy-2945/D8010C998119D00B?sharingId=558BDECF53FCE0EF" target="_blank" rel="noopener">Verify credential <span aria-hidden="true">&#8599;</span></a>
+            </article>
 
-        </div>
-
-        <!-- 4c. AWS AI/ML Learning Plan certificates (image evidence cards) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">AWS AI &amp; ML Learning Plan</h3>
-          <p class="edu-subhead-note">
-            Completed learning plans from AWS Skill Builder. Click any certificate image to open the full PDF.
-          </p>
-        </div>
-        <div class="cert-image-grid">
-
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-ai-practitioner.pdf" target="_blank" rel="noopener" aria-label="Open AWS Artificial Intelligence Practitioner Learning Plan PDF">
-              <img src="assets/certs/aws-ai-practitioner.jpg" alt="AWS Artificial Intelligence Practitioner Learning Plan certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · AI</span>
-              <h3 class="cert-image-title">AWS Artificial Intelligence Practitioner Learning Plan</h3>
+            <!-- AWS -->
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-ai-practitioner.pdf" target="_blank" rel="noopener" aria-label="Open AWS AI Practitioner Learning Plan PDF">
+                <img src="assets/certs/aws-ai-practitioner.jpg" alt="AWS Artificial Intelligence Practitioner Learning Plan certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; AI</span>
+              <h3 class="hs-cert-title">AI Practitioner Learning Plan</h3>
               <a class="verify-link" href="assets/certs/aws-ai-practitioner.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-ai-use-cases.pdf" target="_blank" rel="noopener" aria-label="Open Exploring AI Use Cases PDF">
-              <img src="assets/certs/aws-ai-use-cases.jpg" alt="Exploring Artificial Intelligence Use Cases and Applications certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · AI</span>
-              <h3 class="cert-image-title">Exploring Artificial Intelligence Use Cases and Applications</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-ai-use-cases.pdf" target="_blank" rel="noopener" aria-label="Open Exploring AI Use Cases PDF">
+                <img src="assets/certs/aws-ai-use-cases.jpg" alt="Exploring Artificial Intelligence Use Cases and Applications certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; AI</span>
+              <h3 class="hs-cert-title">Exploring AI Use Cases &amp; Applications</h3>
               <a class="verify-link" href="assets/certs/aws-ai-use-cases.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-foundation-models.pdf" target="_blank" rel="noopener" aria-label="Open Optimizing Foundation Models PDF">
-              <img src="assets/certs/aws-foundation-models.jpg" alt="Optimizing Foundation Models certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · AI</span>
-              <h3 class="cert-image-title">Optimizing Foundation Models</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-foundation-models.pdf" target="_blank" rel="noopener" aria-label="Open Optimizing Foundation Models PDF">
+                <img src="assets/certs/aws-foundation-models.jpg" alt="Optimizing Foundation Models certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; AI</span>
+              <h3 class="hs-cert-title">Optimizing Foundation Models</h3>
               <a class="verify-link" href="assets/certs/aws-foundation-models.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-prompt-engineering.pdf" target="_blank" rel="noopener" aria-label="Open Essentials of Prompt Engineering PDF">
-              <img src="assets/certs/aws-prompt-engineering.jpg" alt="Essentials of Prompt Engineering certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · GenAI</span>
-              <h3 class="cert-image-title">Essentials of Prompt Engineering</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-prompt-engineering.pdf" target="_blank" rel="noopener" aria-label="Open Essentials of Prompt Engineering PDF">
+                <img src="assets/certs/aws-prompt-engineering.jpg" alt="Essentials of Prompt Engineering certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; GenAI</span>
+              <h3 class="hs-cert-title">Essentials of Prompt Engineering</h3>
               <a class="verify-link" href="assets/certs/aws-prompt-engineering.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-ml-solutions.pdf" target="_blank" rel="noopener" aria-label="Open Developing Machine Learning Solutions PDF">
-              <img src="assets/certs/aws-ml-solutions.jpg" alt="Developing Machine Learning Solutions certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · ML</span>
-              <h3 class="cert-image-title">Developing Machine Learning Solutions</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-ml-solutions.pdf" target="_blank" rel="noopener" aria-label="Open Developing Machine Learning Solutions PDF">
+                <img src="assets/certs/aws-ml-solutions.jpg" alt="Developing Machine Learning Solutions certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; ML</span>
+              <h3 class="hs-cert-title">Developing Machine Learning Solutions</h3>
               <a class="verify-link" href="assets/certs/aws-ml-solutions.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/aws-security-governance.pdf" target="_blank" rel="noopener" aria-label="Open Security Compliance and Governance for AI Solutions PDF">
-              <img src="assets/certs/aws-security-governance.jpg" alt="Security, Compliance, and Governance for AI Solutions certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">AWS · Governance</span>
-              <h3 class="cert-image-title">Security, Compliance, and Governance for AI Solutions</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/aws-security-governance.pdf" target="_blank" rel="noopener" aria-label="Open Security Compliance and Governance for AI Solutions PDF">
+                <img src="assets/certs/aws-security-governance.jpg" alt="Security, Compliance, and Governance for AI Solutions certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">AWS &middot; Governance</span>
+              <h3 class="hs-cert-title">Security, Compliance &amp; Governance for AI</h3>
               <a class="verify-link" href="assets/certs/aws-security-governance.pdf" target="_blank" rel="noopener">View PDF <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-        </div>
-
-        <!-- 4d. Professional certification (BNSP image evidence) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Professional certification</h3>
-          <p class="edu-subhead-note">
-            Nationally-recognised competency certification from the Indonesian Professional Certification Authority (BNSP).
-          </p>
-        </div>
-        <div class="cert-image-grid">
-
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/bnsp-programmer.jpg" target="_blank" rel="noopener" aria-label="Open BNSP Programmer certificate image">
-              <img src="assets/certs/bnsp-programmer.jpg" alt="BNSP Certificate of Competency — Programmer" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">BNSP · Indonesia</span>
-              <h3 class="cert-image-title">Certificate of Competency &mdash; Programmer</h3>
+            <!-- BNSP -->
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/bnsp-programmer.jpg" target="_blank" rel="noopener" aria-label="Open BNSP Programmer certificate image">
+                <img src="assets/certs/bnsp-programmer.jpg" alt="BNSP Certificate of Competency — Programmer" loading="lazy" />
+              </a>
+              <span class="hs-chip">BNSP &middot; Indonesia</span>
+              <h3 class="hs-cert-title">Certificate of Competency — Programmer</h3>
               <a class="verify-link" href="https://bnsp.go.id/" target="_blank" rel="noopener">Verify on BNSP <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-        </div>
-
-        <!-- 4e. Coursera Specializations (image evidence cards) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Coursera Specializations</h3>
-          <p class="edu-subhead-note">
-            Verified specializations from Stanford / DeepLearning.AI and Google. Click any certificate image to open the full PDF.
-          </p>
-        </div>
-        <div class="cert-image-grid">
-
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/coursera-ml-specialization.pdf" target="_blank" rel="noopener" aria-label="Open Machine Learning Specialization PDF">
-              <img src="assets/certs/coursera-ml-specialization.jpg" alt="Machine Learning Specialization certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Coursera · Stanford / DeepLearning.AI</span>
-              <h3 class="cert-image-title">Machine Learning Specialization</h3>
+            <!-- Coursera -->
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/coursera-ml-specialization.pdf" target="_blank" rel="noopener" aria-label="Open Machine Learning Specialization PDF">
+                <img src="assets/certs/coursera-ml-specialization.jpg" alt="Machine Learning Specialization certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">Coursera &middot; Stanford / DeepLearning.AI</span>
+              <h3 class="hs-cert-title">Machine Learning Specialization</h3>
               <a class="verify-link" href="https://www.coursera.org/account/accomplishments/specialization/certificate/SSSFLCAZPPNP" target="_blank" rel="noopener">Verify on Coursera <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/coursera-mlops-specialization.pdf" target="_blank" rel="noopener" aria-label="Open MLOps Specialization PDF">
-              <img src="assets/certs/coursera-mlops-specialization.jpg" alt="Machine Learning Engineering for Production (MLOps) Specialization certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Coursera · DeepLearning.AI</span>
-              <h3 class="cert-image-title">Machine Learning Engineering for Production (MLOps) Specialization</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/coursera-mlops-specialization.pdf" target="_blank" rel="noopener" aria-label="Open MLOps Specialization PDF">
+                <img src="assets/certs/coursera-mlops-specialization.jpg" alt="MLOps Specialization certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">Coursera &middot; DeepLearning.AI</span>
+              <h3 class="hs-cert-title">MLOps Specialization</h3>
               <a class="verify-link" href="https://www.coursera.org/account/accomplishments/specialization/certificate/5863WY9BXYWD" target="_blank" rel="noopener">Verify on Coursera <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/coursera-google-it-support.pdf" target="_blank" rel="noopener" aria-label="Open Google IT Support Specialization PDF">
-              <img src="assets/certs/coursera-google-it-support.jpg" alt="Google IT Support Specialization certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Coursera · Google</span>
-              <h3 class="cert-image-title">Google IT Support Specialization</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/coursera-google-it-support.pdf" target="_blank" rel="noopener" aria-label="Open Google IT Support Specialization PDF">
+                <img src="assets/certs/coursera-google-it-support.jpg" alt="Google IT Support Specialization certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">Coursera &middot; Google</span>
+              <h3 class="hs-cert-title">Google IT Support Specialization</h3>
               <a class="verify-link" href="https://www.coursera.org/account/accomplishments/specialization/certificate/WWN7M8P6WYP8" target="_blank" rel="noopener">Verify on Coursera <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/coursera-google-advanced-da.pdf" target="_blank" rel="noopener" aria-label="Open Google Advanced Data Analytics Specialization PDF">
-              <img src="assets/certs/coursera-google-advanced-da.jpg" alt="Google Advanced Data Analytics Specialization certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Coursera · Google</span>
-              <h3 class="cert-image-title">Google Advanced Data Analytics Specialization</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/coursera-google-advanced-da.pdf" target="_blank" rel="noopener" aria-label="Open Google Advanced Data Analytics Specialization PDF">
+                <img src="assets/certs/coursera-google-advanced-da.jpg" alt="Google Advanced Data Analytics Specialization certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">Coursera &middot; Google</span>
+              <h3 class="hs-cert-title">Google Advanced Data Analytics</h3>
               <a class="verify-link" href="https://www.coursera.org/account/accomplishments/specialization/certificate/SETAPPHTS2PT" target="_blank" rel="noopener">Verify on Coursera <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="assets/certs/coursera-data-science-foundations.pdf" target="_blank" rel="noopener" aria-label="Open Foundations of Data Science PDF">
-              <img src="assets/certs/coursera-data-science-foundations.jpg" alt="Foundations of Data Science certificate" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Coursera · Google</span>
-              <h3 class="cert-image-title">Foundations: Data, Data Everywhere (Google Data Analytics)</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="assets/certs/coursera-data-science-foundations.pdf" target="_blank" rel="noopener" aria-label="Open Foundations of Data Science PDF">
+                <img src="assets/certs/coursera-data-science-foundations.jpg" alt="Foundations of Data Science certificate" loading="lazy" />
+              </a>
+              <span class="hs-chip">Coursera &middot; Google</span>
+              <h3 class="hs-cert-title">Foundations: Data, Data Everywhere</h3>
               <a class="verify-link" href="https://www.coursera.org/account/accomplishments/certificate/UCYCM84NNHBP" target="_blank" rel="noopener">Verify on Coursera <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-        </div>
-
-        <!-- 4f. Google Cloud Skills Boost badges (image evidence cards) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Google Cloud Skills Boost</h3>
-          <p class="edu-subhead-note">
-            Generative AI completion badges from Google Cloud Skills Boost. Click any badge image to open the official badge record.
-          </p>
-        </div>
-        <div class="cert-image-grid">
-
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048013" target="_blank" rel="noopener" aria-label="Open Introduction to Generative AI badge">
-              <img src="assets/certs/google-cloud-badge-5048013.png" alt="Introduction to Generative AI badge" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Google Cloud · GenAI</span>
-              <h3 class="cert-image-title">Introduction to Generative AI</h3>
+            <!-- Google Cloud badges -->
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048013" target="_blank" rel="noopener" aria-label="Open Introduction to Generative AI badge">
+                <img src="assets/certs/google-cloud-badge-5048013.png" alt="Introduction to Generative AI badge" loading="lazy" />
+              </a>
+              <span class="hs-chip">Google Cloud &middot; GenAI</span>
+              <h3 class="hs-cert-title">Introduction to Generative AI</h3>
               <a class="verify-link" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048013" target="_blank" rel="noopener">Verify badge <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048098" target="_blank" rel="noopener" aria-label="Open Introduction to Large Language Models badge">
-              <img src="assets/certs/google-cloud-badge-5048098.png" alt="Introduction to Large Language Models badge" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Google Cloud · LLM</span>
-              <h3 class="cert-image-title">Introduction to Large Language Models</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048098" target="_blank" rel="noopener" aria-label="Open Introduction to Large Language Models badge">
+                <img src="assets/certs/google-cloud-badge-5048098.png" alt="Introduction to Large Language Models badge" loading="lazy" />
+              </a>
+              <span class="hs-chip">Google Cloud &middot; LLM</span>
+              <h3 class="hs-cert-title">Introduction to Large Language Models</h3>
               <a class="verify-link" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048098" target="_blank" rel="noopener">Verify badge <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card cert-image-card">
-            <a class="cert-image-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048427" target="_blank" rel="noopener" aria-label="Open Generative AI Fundamentals badge">
-              <img src="assets/certs/google-cloud-badge-5048427.png" alt="Generative AI Fundamentals badge" loading="lazy" />
-            </a>
-            <div class="cert-image-body">
-              <span class="cert-image-tag">Google Cloud · GenAI</span>
-              <h3 class="cert-image-title">Generative AI Fundamentals</h3>
+            <article class="hs-cert" data-reveal>
+              <a class="hs-cert-img" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048427" target="_blank" rel="noopener" aria-label="Open Generative AI Fundamentals badge">
+                <img src="assets/certs/google-cloud-badge-5048427.png" alt="Generative AI Fundamentals badge" loading="lazy" />
+              </a>
+              <span class="hs-chip">Google Cloud &middot; GenAI</span>
+              <h3 class="hs-cert-title">Generative AI Fundamentals</h3>
               <a class="verify-link" href="https://www.cloudskillsboost.google/public_profiles/32800acf-5607-4eda-b8d3-e9ff39148213/badges/5048427" target="_blank" rel="noopener">Verify badge <span aria-hidden="true">&#8599;</span></a>
-            </div>
-          </article>
+            </article>
 
-        </div>
+            <!-- Additional credentials -->
+            <article class="hs-card hs-card-tight" data-reveal>
+              <span class="hs-chip">More &middot; AWS</span>
+              <h3 class="hs-role">AWS AI &amp; ML — continued</h3>
+              <ul class="hs-links">
+                <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/140/aws-machine-learning-foundations" target="_blank" rel="noopener">Fundamentals of ML and AI <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/17530/generative-ai-solutions-on-aws" target="_blank" rel="noopener">Developing Generative AI Solutions <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/18128/responsible-ai-for-aws-ai-services" target="_blank" rel="noopener">Responsible AI Practices <span aria-hidden="true">&#8599;</span></a></li>
+              </ul>
+            </article>
 
-        <!-- 4g. Additional credentials & specializations (text links) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Additional credentials &amp; specializations</h3>
-          <p class="edu-subhead-note">
-            Other verified professional credentials. Each link opens the official issuer record.
-          </p>
-        </div>
-        <div class="cert-groups">
+            <article class="hs-card hs-card-tight" data-reveal>
+              <span class="hs-chip">More &middot; Security &amp; Network</span>
+              <h3 class="hs-role">Professional certifications</h3>
+              <ul class="hs-links">
+                <li><a href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/" target="_blank" rel="noopener">CEH — EC-Council <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://mikrotik.com/training/certificates/b116327c18f66e9a5ec0" target="_blank" rel="noopener">MTCNA — MikroTik <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://academy.uipath.com/" target="_blank" rel="noopener">UiPath RPA Training <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://www.coursera.org/learn/project-management" target="_blank" rel="noopener">Dasar-dasar Manajemen Proyek <span aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://www.coursera.org/learn/computer-networking" target="_blank" rel="noopener">Bits and Bytes of Networking <span aria-hidden="true">&#8599;</span></a></li>
+              </ul>
+            </article>
 
-          <div class="card cert-group">
-            <h3>AWS AI &amp; ML (continued)</h3>
-            <ul>
-              <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/140/aws-machine-learning-foundations" target="_blank" rel="noopener">Fundamentals of Machine Learning and Artificial Intelligence <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/17530/generative-ai-solutions-on-aws" target="_blank" rel="noopener">Developing Generative Artificial Intelligence Solutions <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/18128/responsible-ai-for-aws-ai-services" target="_blank" rel="noopener">Responsible Artificial Intelligence Practices <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-            </ul>
-          </div>
-
-          <div class="card cert-group">
-            <h3>Security, Network &amp; Professional</h3>
-            <ul>
-              <li><a href="https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/" target="_blank" rel="noopener">Certified Ethical Hacker (CEH) &mdash; EC-Council <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://mikrotik.com/training/certificates/b116327c18f66e9a5ec0" target="_blank" rel="noopener">MTCNA &mdash; MikroTik Certified Network Associate <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://academy.uipath.com/" target="_blank" rel="noopener">UiPath Infrastructure Training (RPA) <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://www.coursera.org/learn/project-management" target="_blank" rel="noopener">Dasar-dasar Manajemen Proyek (Google / Coursera) <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-              <li><a href="https://www.coursera.org/learn/computer-networking" target="_blank" rel="noopener">The Bits and Bytes of Computer Networking (Google / Coursera) <span class="cert-ext" aria-hidden="true">&#8599;</span></a></li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- 4h. Selected publications with inline PDF viewer (always visible) -->
-        <div class="edu-subhead">
-          <h3 class="edu-subhead-title">Selected academic publications</h3>
-          <p class="edu-subhead-note">
-            SINTA ID 6762248 &middot; ~196 Google Scholar citations &middot;
-            <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener" class="inline-link">View Google Scholar profile</a> for the full publication list. PDFs are embedded inline for direct reading.
-          </p>
-        </div>
-        <div class="pub-grid">
-
-          <article class="card pub-card">
-            <header class="pub-card-head">
-              <span class="pub-card-num">01</span>
-              <div class="pub-card-meta">
-                <h3 class="pub-card-title">
-                  <a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/14179" target="_blank" rel="noopener">
-                    Sentiment Analysis about Islamophobia during the Christchurch Attack on Social Media
-                  </a>
-                </h3>
-                <p class="pub-card-venue">TELKOMNIKA (Telecommunication, Computing, Electronics and Control) &middot; Universitas Ahmad Dahlan &middot; 2020</p>
+            <!-- Publications -->
+            <article class="hs-pub" data-reveal>
+              <span class="hs-chip">Publication &middot; 2020</span>
+              <h3 class="hs-role">Sentiment Analysis about Islamophobia during the Christchurch Attack on Social Media</h3>
+              <p class="hs-org">TELKOMNIKA (Telecommunication, Computing, Electronics and Control) &middot; Universitas Ahmad Dahlan</p>
+              <p class="hs-text">VADER-based automatic labelling of social-media discourse; validated with Naive Bayes and SVM against manually labelled ground truth, using SMOTE for imbalanced data.</p>
+              <div class="hs-pub-actions">
+                <a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/14179" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View on TELKOMNIKA <span aria-hidden="true">&#8599;</span></a>
+                <a href="assets/publications/islamophobia-analysis.pdf" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Open PDF <span aria-hidden="true">&#8599;</span></a>
               </div>
-            </header>
-            <div class="pub-card-body">
-              <p>
-                Applied VADER-based automatic labelling to social-media discourse surrounding the
-                Christchurch attack; quantified islamophobia sentiment dynamics and validated the
-                approach against manually labelled ground truth using Naive Bayes and SVM, with SMOTE
-                for imbalanced data. SVM with SMOTE achieved the highest performance. The full
-                peer-reviewed article is embedded below for direct reading.
-              </p>
-            </div>
-            <div class="pub-card-actions">
-              <a href="https://telkomnika.uad.ac.id/index.php/TELKOMNIKA/article/view/14179" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
-                View on TELKOMNIKA <span aria-hidden="true">&#8599;</span>
-              </a>
-              <a href="assets/publications/islamophobia-analysis.pdf" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
-                Open PDF <span aria-hidden="true">&#8599;</span>
-              </a>
-            </div>
-            <div class="pub-pdf-wrap">
-              <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https%3A%2F%2Fbayhaqy.my.id%2Fassets%2Fpublications%2Fislamophobia-analysis.pdf" title="Sentiment Analysis about Islamophobia — TELKOMNIKA 2020 (PDF)" loading="lazy"></iframe>
-              <a class="pub-pdf-fallback" href="assets/publications/islamophobia-analysis.pdf" target="_blank" rel="noopener">Open PDF in new tab &#8599;</a>
-            </div>
-          </article>
-
-          <article class="card pub-card">
-            <header class="pub-card-head">
-              <span class="pub-card-num">02</span>
-              <div class="pub-card-meta">
-                <h3 class="pub-card-title">
-                  <a href="https://ieeexplore.ieee.org/abstract/document/8705796/" target="_blank" rel="noopener">
-                    Sentiment Analysis about E-Commerce from Tweets Using Decision Tree, K-Nearest Neighbor, and Naive Bayes
-                  </a>
-                </h3>
-                <p class="pub-card-venue">IEEE &middot; International Conference on Informatics, Computing, Engineering and Power Technology &middot; 2019</p>
+              <div class="pub-pdf-wrap">
+                <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https%3A%2F%2Fbayhaqy.my.id%2Fassets%2Fpublications%2Fislamophobia-analysis.pdf" title="Sentiment Analysis about Islamophobia — TELKOMNIKA 2020 (PDF)" loading="lazy"></iframe>
+                <a class="pub-pdf-fallback" href="assets/publications/islamophobia-analysis.pdf" target="_blank" rel="noopener">Open PDF in new tab &#8599;</a>
               </div>
-            </header>
-            <div class="pub-card-body">
-              <p>
-                Comparative study of three classical classifiers (Decision Tree, KNN, Naive Bayes) on
-                Indonesian e-commerce tweet sentiment from Tokopedia and Bukalapak. Text mining
-                techniques (tokenize, stem, classify) were applied in RapidMiner. Naive Bayes
-                achieved the best result with 77% accuracy, 88.50% precision, and 64% recall. The
-                full paper is embedded below for direct reading.
-              </p>
-            </div>
-            <div class="pub-card-actions">
-              <a href="https://ieeexplore.ieee.org/abstract/document/8705796/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
-                View on IEEE Xplore <span aria-hidden="true">&#8599;</span>
-              </a>
-              <a href="assets/publications/sentiment-ecommerce-ieee.pdf" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
-                Open PDF <span aria-hidden="true">&#8599;</span>
-              </a>
-            </div>
-            <div class="pub-pdf-wrap">
-              <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https%3A%2F%2Fbayhaqy.my.id%2Fassets%2Fpublications%2Fsentiment-ecommerce-ieee.pdf" title="Sentiment Analysis about E-Commerce — IEEE 2019 (PDF)" loading="lazy"></iframe>
-              <a class="pub-pdf-fallback" href="assets/publications/sentiment-ecommerce-ieee.pdf" target="_blank" rel="noopener">Open PDF in new tab &#8599;</a>
-            </div>
-          </article>
+            </article>
 
-        </div>
-        <p class="edu-subhead-note" style="margin-top: 1.25rem; text-align: center;">
-          More publications (conference pre-prints, working papers, and additional collaborations) are listed on
-          <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener" class="inline-link">Google Scholar &#8599;</a>.
-        </p>
-      </div>
-    </section>
+            <article class="hs-pub" data-reveal>
+              <span class="hs-chip">Publication &middot; 2019</span>
+              <h3 class="hs-role">Sentiment Analysis about E-Commerce from Tweets Using Decision Tree, K-Nearest Neighbor, and Naive Bayes</h3>
+              <p class="hs-org">IEEE &middot; International Conference on Informatics, Computing, Engineering and Power Technology</p>
+              <p class="hs-text">Comparative study of three classifiers on Indonesian e-commerce tweet sentiment (Tokopedia, Bukalapak). Naive Bayes achieved the best result: 77% accuracy, 88.50% precision, 64% recall.</p>
+              <div class="hs-pub-actions">
+                <a href="https://ieeexplore.ieee.org/abstract/document/8705796/" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View on IEEE <span aria-hidden="true">&#8599;</span></a>
+                <a href="assets/publications/sentiment-ecommerce-ieee.pdf" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Open PDF <span aria-hidden="true">&#8599;</span></a>
+              </div>
+              <div class="pub-pdf-wrap">
+                <iframe src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https%3A%2F%2Fbayhaqy.my.id%2Fassets%2Fpublications%2Fsentiment-ecommerce-ieee.pdf" title="Sentiment Analysis about E-Commerce — IEEE 2019 (PDF)" loading="lazy"></iframe>
+                <a class="pub-pdf-fallback" href="assets/publications/sentiment-ecommerce-ieee.pdf" target="_blank" rel="noopener">Open PDF in new tab &#8599;</a>
+              </div>
+            </article>
 
-    <!-- ============ CONTACT ============ -->
-    <section id="contact" class="section contact-section">
-      <div class="container">
-        <header class="section-head">
-          <p class="section-eyebrow">05 — Contact</p>
-          <h2 class="section-title">Let's build something measurable</h2>
-          <p class="section-sub">
-            Open to executive conversations, advisory engagements, and academic collaborations.
-          </p>
-        </header>
-
-        <!-- Editorial contact: invitation + links, not a rigid grid -->
-        <div class="contact-editorial">
-          <div class="contact-invite">
-            <p class="contact-lead">
-              Whether you are scaling a data platform, exploring Agentic AI in production, or building a
-              data-literate team &mdash; I would welcome a conversation.
-            </p>
-            <div class="contact-actions">
-              <a href="assets/Achmad_Bayhaqy_CV.pdf" class="btn btn-primary" download>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download CV (PDF)
-              </a>
-              <p class="contact-note">Full contact details (email &amp; phone) are included inside the CV.</p>
-            </div>
           </div>
-
-          <ul class="contact-links">
-            <li>
-              <a href="https://www.linkedin.com/in/achmad-bayhaqy">
-                <span class="cl-label">My LinkedIn</span>
-                <span class="cl-value">/in/achmad-bayhaqy</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/bayhaqy">
-                <span class="cl-label">My GitHub</span>
-                <span class="cl-value">github.com/bayhaqy</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://blog.bayhaqy.my.id">
-                <span class="cl-label">My Blog</span>
-                <span class="cl-value">blog.bayhaqy.my.id</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ">
-                <span class="cl-label">My Scholar</span>
-                <span class="cl-value">~196 citations &middot; SINTA 6762248</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://bayhaqy.my.id/apps">
-                <span class="cl-label">My Apps</span>
-                <span class="cl-value">bayhaqy.my.id/apps</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://bayhaqy.my.id/kids">
-                <span class="cl-label">My Kids</span>
-                <span class="cl-value">bayhaqy.my.id/kids</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://bayhaqy.my.id/games">
-                <span class="cl-label">My Games</span>
-                <span class="cl-value">bayhaqy.my.id/games</span>
-                <span class="cl-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </li>
-            <li class="contact-links-static">
-              <span class="cl-label">Location</span>
-              <span class="cl-value">Central Jakarta &middot; Remote-friendly</span>
-            </li>
-          </ul>
         </div>
+        <p class="hs-endnote" data-reveal>Full publication list on <a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener" class="inline-link">Google Scholar &#8599;</a> &middot; Complete certification history on <a href="https://www.linkedin.com/in/achmad-bayhaqy/details/certifications/" target="_blank" rel="noopener" class="inline-link">LinkedIn &#8599;</a></p>
       </div>
     </section>
   </main>
@@ -1068,6 +759,6 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="script.js?v=20260829a"></script>
+  <script src="script.js?v=20260829b"></script>
 </body>
 </html>
