@@ -105,7 +105,7 @@
   /* ---------- Active nav link via IntersectionObserver ---------- */
   var sections = document.querySelectorAll('main section[id]');
   var navMap = {};
-  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+  document.querySelectorAll('.nav-links a[href^="#"]:not([data-flip-contact])').forEach(function (a) {
     var href = a.getAttribute('href');
     if (href && href.length > 1) navMap[href.slice(1)] = a;
   });
@@ -231,8 +231,7 @@
     { id: 'about', label: 'About' },
     { id: 'experience', label: 'Experience' },
     { id: 'expertise', label: 'Expertise' },
-    { id: 'education', label: 'Education' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'education', label: 'Education' }
   ];
   if (window.innerWidth > 960) {
     var dotsContainer = document.createElement('nav');
@@ -488,4 +487,159 @@
       }
     }, { passive: true });
   }
+})();
+
+
+/* =================================================================
+   V6 — Horizontal scroll scenes (meepulm-style) · global reveals ·
+   nav Contact flips the card · flip hint button
+   ================================================================= */
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Card flip helpers ---------- */
+  var card = document.getElementById('bcCard');
+  var flipBtn = document.getElementById('bcFlip');
+
+  function flipTo(flipped) {
+    if (!card) return;
+    var isFlipped = card.classList.contains('is-flipped');
+    if (isFlipped === flipped) return;
+    if (flipBtn) flipBtn.click();
+  }
+  var flipHint = document.getElementById('bcFlipHint');
+  if (flipHint) flipHint.addEventListener('click', function () { flipTo(true); });
+
+  /* ---------- Nav "Contact" → scroll to hero + flip card ---------- */
+  document.querySelectorAll('[data-flip-contact]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      setTimeout(function () { flipTo(true); }, 700);
+    });
+  });
+
+  /* ---------- Global scroll reveal ---------- */
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var groups = new Map();
+    revealEls.forEach(function (el) {
+      var p = el.parentElement;
+      var n = groups.get(p) || 0;
+      el.style.setProperty('--reveal-delay', Math.min(n * 70, 350) + 'ms');
+      groups.set(p, n + 1);
+    });
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('revealed');
+        ro.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    revealEls.forEach(function (el) { ro.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('revealed'); });
+  }
+
+  /* ---------- Horizontal scroll scenes ---------- */
+  if (reduceMotion) return;
+
+  var sceneList = [];
+  var isDesktop = function () { return window.innerWidth > 960; };
+
+  function buildScene(sec) {
+    var track = sec.querySelector('.hs-track');
+    var bar = sec.querySelector('.hs-progress-bar');
+    if (!track) return null;
+
+    var st = {
+      sec: sec, track: track, bar: bar,
+      top: 0, travel: 0, current: 0, target: 0,
+      raf: null, active: false, listening: false
+    };
+
+    st.measure = function () {
+      st.top = 0;
+      var el = sec;
+      while (el) { st.top += el.offsetTop; el = el.offsetParent; }
+      st.travel = Math.max(st.track.scrollWidth - window.innerWidth, 0);
+      var speed = parseFloat(sec.getAttribute('data-speed') || '1');
+      sec.style.height = (window.innerHeight + st.travel * speed) + 'px';
+      st.update(true);
+    };
+
+    st.update = function (force) {
+      if (!st.active || !isDesktop()) return;
+      var vh = window.innerHeight;
+      var denom = (sec.offsetHeight - vh) || 1;
+      var progress = Math.min(Math.max((window.scrollY - st.top) / denom, 0), 1);
+      st.target = progress * st.travel;
+      if (force) st.current = st.target;
+      st.current += (st.target - st.current) * 0.14;
+      if (Math.abs(st.target - st.current) < 0.05) st.current = st.target;
+      st.track.style.setProperty('--tx', (-st.current).toFixed(2) + 'px');
+      if (st.bar) st.bar.style.width = (progress * 100).toFixed(2) + '%';
+      if (!force && Math.abs(st.target - st.current) > 0.05) {
+        st.raf = requestAnimationFrame(function () { st.update(); });
+      } else {
+        st.raf = null;
+      }
+    };
+
+    st.onScroll = function () {
+      if (st.raf === null) st.raf = requestAnimationFrame(function () { st.update(); });
+    };
+
+    st.addListener = function (on) {
+      if (on === st.listening) return;
+      st.listening = on;
+      if (on) window.addEventListener('scroll', st.onScroll, { passive: true });
+      else {
+        window.removeEventListener('scroll', st.onScroll);
+        if (st.raf !== null) { cancelAnimationFrame(st.raf); st.raf = null; }
+      }
+    };
+
+    st.sync = function () {
+      var desktop = isDesktop();
+      st.active = true;
+      sec.classList.add('hs-ready');
+      if (desktop) {
+        st.measure();
+        st.addListener(true);
+      } else {
+        // native horizontal swipe (CSS handles it); just clear JS height
+        sec.style.height = '';
+        st.track.style.removeProperty('--tx');
+        st.addListener(false);
+        if (st.bar) st.bar.style.width = '0%';
+      }
+    };
+
+    return st;
+  }
+
+  document.querySelectorAll('[data-hscroll]').forEach(function (sec) {
+    var st = buildScene(sec);
+    if (st) sceneList.push(st);
+  });
+
+  function syncAll() { sceneList.forEach(function (st) { st.sync(); }); }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      syncAll();
+    }, 160);
+  });
+
+  // cert badge images change track width as they load — re-measure
+  window.addEventListener('load', function () {
+    sceneList.forEach(function (st) {
+      if (isDesktop()) st.measure();
+    });
+  });
+
+  syncAll();
 })();
