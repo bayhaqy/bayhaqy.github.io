@@ -337,3 +337,155 @@
     pubPdfs.forEach(function (f) { io.observe(f); });
   }
 })();
+
+/* =================================================================
+   HERO v5 — Business card interactions (meepulm-inspired)
+   Intro veil sequencing · name character reveal · 3D tilt ·
+   sheen tracking · flip front/back · hero scroll parallax.
+   ================================================================= */
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  var body = document.body;
+  var veil = document.getElementById('introVeil');
+  var card = document.getElementById('bcCard');
+  var tilt = document.getElementById('bcTilt');
+  var scene = document.getElementById('bcScene');
+
+  /* ---------- Split "Achmad" into reveal characters ---------- */
+  var surnameDelay = 0;
+  if (card) {
+    var splitEls = card.querySelectorAll('[data-split]');
+    splitEls.forEach(function (el) {
+      var text = el.textContent;
+      el.textContent = '';
+      for (var i = 0; i < text.length; i++) {
+        var ch = document.createElement('span');
+        ch.className = 'bc-ch';
+        ch.setAttribute('aria-hidden', 'true');
+        ch.textContent = text[i];
+        ch.style.transitionDelay = (280 + i * 55) + 'ms';
+        el.appendChild(ch);
+      }
+      // keep the real word accessible to screen readers
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = text;
+      el.appendChild(sr);
+      surnameDelay = 280 + text.length * 55 + 90;
+    });
+    var surname = card.querySelector('.bc-surname');
+    if (surname) surname.style.transitionDelay = surnameDelay + 'ms';
+  }
+
+  /* ---------- Intro veil sequencing ---------- */
+  function finishIntro() {
+    body.classList.add('iv-done');
+    if (card) card.classList.add('is-in');
+    setTimeout(function () {
+      if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
+    }, 900);
+  }
+  if (veil) {
+    if (reduceMotion) {
+      veil.parentNode && veil.parentNode.removeChild(veil);
+      if (card) card.classList.add('is-in');
+    } else {
+      // two RAFs so the initial paint lands before animating
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          body.classList.add('iv-run');
+          setTimeout(finishIntro, 620);
+        });
+      });
+      // hard safety: never trap the user behind the veil
+      setTimeout(function () {
+        if (!body.classList.contains('iv-done')) finishIntro();
+      }, 2400);
+    }
+  } else if (card) {
+    card.classList.add('is-in');
+  }
+
+  if (reduceMotion) return; // no tilt / parallax / sheen below
+
+  /* ---------- 3D tilt (lerped) + sheen tracking ---------- */
+  if (tilt && scene && finePointer) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+
+    var loop = function () {
+      cx += (tx - cx) * 0.085;
+      cy += (ty - cy) * 0.085;
+      tilt.style.setProperty('--rx', cx.toFixed(3) + 'deg');
+      tilt.style.setProperty('--ry', cy.toFixed(3) + 'deg');
+      if (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        raf = null;
+      }
+    };
+    var kick = function () { if (raf === null) raf = requestAnimationFrame(loop); };
+
+    scene.addEventListener('pointermove', function (e) {
+      var r = tilt.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      ty = px * 10;   // rotateY
+      tx = py * -7.5; // rotateX
+      tilt.style.setProperty('--mx', ((px + 0.5) * 100).toFixed(2) + '%');
+      tilt.style.setProperty('--my', ((py + 0.5) * 100).toFixed(2) + '%');
+      kick();
+    });
+    scene.addEventListener('pointerleave', function () {
+      tx = 0; ty = 0;
+      kick();
+    });
+  }
+
+  /* ---------- Flip front / back ---------- */
+  var flipBtn = document.getElementById('bcFlip');
+  var flipBackBtn = document.getElementById('bcFlipBack');
+  var back = document.getElementById('bcBack');
+
+  function setFlipped(flipped) {
+    if (!card) return;
+    card.classList.toggle('is-flipped', flipped);
+    if (flipBtn) flipBtn.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    if (back) back.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+    var front = card.querySelector('.bc-front');
+    if (front) front.setAttribute('aria-hidden', flipped ? 'true' : 'false');
+  }
+  if (flipBtn) flipBtn.addEventListener('click', function () {
+    setFlipped(!card.classList.contains('is-flipped'));
+  });
+  if (flipBackBtn) flipBackBtn.addEventListener('click', function () { setFlipped(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setFlipped(false);
+  });
+
+  /* ---------- Hero scroll parallax (subtle fade-and-drift) ---------- */
+  var stage = document.querySelector('.hero-stage');
+  var wrap = document.getElementById('heroStageWrap');
+  if (stage && wrap && finePointer) {
+    var ticking = false;
+    var parallax = function () {
+      ticking = false;
+      var sy = window.scrollY;
+      var h = stage.offsetHeight || 1;
+      if (sy <= h) {
+        wrap.style.transform = 'translateY(' + (sy * 0.16).toFixed(1) + 'px)';
+        wrap.style.opacity = Math.max(1 - sy / (h * 0.72), 0).toFixed(3);
+      }
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(parallax);
+      }
+    }, { passive: true });
+  }
+})();
