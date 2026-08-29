@@ -17,7 +17,10 @@
   <meta property="og:description" content="Enterprise IT Strategy · Data &amp; AI · Cloud Infrastructure · Security · Automation. 12+ years across a 7-country, 3,000+ store retail ecosystem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bayhaqy.my.id/" />
-  <meta property="og:image" content="https://bayhaqy.my.id/assets/logo.png" />
+  <meta property="og:image" content="https://bayhaqy.my.id/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Business card of Achmad Bayhaqy — IT Solutions Leader · Data &amp; AI · Cloud · Security · Automation" />
   <meta property="og:image:alt" content="Achmad Bayhaqy personal logo" />
   <meta property="og:site_name" content="Achmad Bayhaqy" />
   <meta property="og:locale" content="en_US" />
@@ -26,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Achmad Bayhaqy — IT Solutions Leader" />
   <meta name="twitter:description" content="Enterprise IT Strategy · Data &amp; AI · Cloud Infrastructure · Security · Automation." />
-  <meta name="twitter:image" content="https://bayhaqy.my.id/assets/logo.png" />
+  <meta name="twitter:image" content="https://bayhaqy.my.id/assets/og-card.png" />
 
   <link rel="icon" type="image/png" href="assets/logo.png" />
   <link rel="apple-touch-icon" href="assets/logo.png" />
@@ -34,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=20260809h" />
+  <link rel="stylesheet" href="style.css?v=20260829a" />
   <script>
     // Prevent theme flash: load saved theme before CSS renders
     (function() {
@@ -115,6 +118,14 @@
   </script>
 </head>
 <body>
+  <!-- ============ INTRO VEIL (page-load transition) ============ -->
+  <div class="intro-veil" id="introVeil" aria-hidden="true">
+    <span class="iv-line iv-line-top"></span>
+    <span class="iv-mark">A&middot;B</span>
+    <span class="iv-line iv-line-bottom"></span>
+  </div>
+  <noscript><style>.intro-veil{display:none!important}.bc-ch,.bc-surname{opacity:1!important;transform:none!important}</style></noscript>
+
   <!-- ============ HEADER / NAV ============ -->
   <header class="site-header" id="siteHeader">
     <div class="container nav-wrap">
@@ -139,48 +150,104 @@
   </header>
 
   <main>
-    <!-- ============ HERO ============ -->
-    <section id="hero" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">IT Solutions Leader · Jakarta, Indonesia</p>
-          <h1 class="hero-title">
-            Achmad <span class="hero-title-accent">Bayhaqy</span>
-          </h1>
-          <p class="hero-tagline">
-            Enterprise IT Strategy &middot; Data &amp; AI Platforms &middot; Cloud, Security &amp; Automation
-          </p>
-          <p class="hero-summary">
-            Twelve years designing and scaling end-to-end IT solutions — from enterprise data
-            platforms and Agentic AI to cloud infrastructure, security, and automation across a
-            3,000+ store, 7-country retail ecosystem. I translate complex technology into measurable
-            business value: a 60% cloud cost reduction, 99.9%+ uptime SLAs, and multi-vendor
-            Agentic AI running in production.
-          </p>
+    <!-- ============ HERO — BUSINESS CARD ============ -->
+    <section id="hero" class="hero hero-stage">
+      <div class="hero-fx" aria-hidden="true">
+        <div class="fx-glow"></div>
+        <div class="fx-grain"></div>
+        <div class="fx-vignette"></div>
+      </div>
 
-          <div class="hero-actions">
-            <a href="assets/Achmad_Bayhaqy_CV.pdf" class="btn btn-primary" download>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download CV
-            </a>
-            <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      <div class="container hero-stage-wrap" id="heroStageWrap">
+        <p class="bc-hello"><span class="bc-hello-rule"></span>Hello, I&rsquo;m<span class="bc-hello-rule"></span></p>
+
+        <div class="bc-scene" id="bcScene">
+          <div class="bc-tilt" id="bcTilt">
+            <div class="bc-card" id="bcCard">
+
+              <!-- FRONT -->
+              <div class="bc-face bc-front">
+                <span class="bc-sheen" aria-hidden="true"></span>
+                <span class="bc-edge" aria-hidden="true"></span>
+
+                <button class="bc-flip" id="bcFlip" type="button" aria-label="Flip business card" aria-pressed="false" title="Flip card">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+
+                <div class="bc-head">
+                  <div class="bc-photo">
+                    <img src="assets/profile.png" alt="Portrait of Achmad Bayhaqy" width="184" height="224" />
+                  </div>
+                  <div class="bc-id">
+                    <h1 class="bc-name">
+                      <span class="bc-name-row"><span class="bc-first" data-split>Achmad</span></span>
+                      <span class="bc-name-row"><span class="bc-surname">Bayhaqy</span></span>
+                    </h1>
+                    <p class="bc-role">IT Solutions Leader</p>
+                    <p class="bc-loc">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      Jakarta, Indonesia &middot; MAP Active
+                    </p>
+                  </div>
+                </div>
+
+                <div class="bc-divider" role="presentation" aria-label="Specialties: Data and AI, Cloud, Security, Automation"><span>Data &amp; AI</span><i></i><span>Cloud</span><i></i><span>Security</span><i></i><span>Automation</span></div>
+
+                <div class="bc-actions">
+                  <a href="assets/Achmad_Bayhaqy_CV.pdf" class="btn btn-primary" download>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download CV
+                  </a>
+                  <a href="#contact" class="btn btn-ghost">Get in touch</a>
+                </div>
+
+                <div class="bc-foot">
+                  <span class="bc-domain">bayhaqy.my.id</span>
+                  <span class="bc-status"><span class="bc-dot" aria-hidden="true"></span>Open to collaborate</span>
+                </div>
+              </div>
+
+              <!-- BACK -->
+              <div class="bc-face bc-back" id="bcBack" aria-hidden="true">
+                <span class="bc-sheen" aria-hidden="true"></span>
+
+                <div class="bc-back-head">
+                  <span class="bc-monogram" aria-hidden="true">AB</span>
+                  <div class="bc-back-title">
+                    <strong>Achmad Bayhaqy</strong>
+                    <small>IT Solutions Leader &middot; Jakarta</small>
+                  </div>
+                </div>
+
+                <ul class="bc-links">
+                  <li><a href="https://www.linkedin.com/in/achmad-bayhaqy" target="_blank" rel="noopener"><span>LinkedIn</span><em>/in/achmad-bayhaqy</em></a></li>
+                  <li><a href="https://github.com/bayhaqy" target="_blank" rel="noopener"><span>GitHub</span><em>github.com/bayhaqy</em></a></li>
+                  <li><a href="https://scholar.google.com/citations?user=guZ4cSAAAAAJ" target="_blank" rel="noopener"><span>Scholar</span><em>~196 citations &middot; SINTA 6762248</em></a></li>
+                  <li><a href="https://blog.bayhaqy.my.id" target="_blank" rel="noopener"><span>Blog</span><em>blog.bayhaqy.my.id</em></a></li>
+                  <li><a href="https://bayhaqy.my.id/apps" target="_blank" rel="noopener"><span>Apps</span><em>bayhaqy.my.id/apps</em></a></li>
+                </ul>
+
+                <div class="bc-back-foot">
+                  <a href="assets/Achmad_Bayhaqy_CV.pdf" class="bc-cvlink" download>Download CV (PDF)</a>
+                  <button class="bc-flip-back" id="bcFlipBack" type="button">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    Flip back
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </div>
-
-          <ul class="hero-meta" id="heroStats">
-            <li><span class="meta-num" data-count="12" data-suffix="+">0</span><span class="meta-label">Years in IT &amp; Data</span></li>
-            <li><span class="meta-num" data-count="60" data-suffix="%">0</span><span class="meta-label">Cloud cost reduction</span></li>
-            <li><span class="meta-num" data-count="3000" data-suffix="+">0</span><span class="meta-label">Stores served</span></li>
-            <li><span class="meta-num" data-count="20" data-suffix="+">0</span><span class="meta-label">Students supervised</span></li>
-          </ul>
         </div>
 
-        <aside class="hero-photo" aria-label="Portrait of Achmad Bayhaqy">
-          <img src="assets/profile.png" alt="Achmad Bayhaqy" width="448" height="598" />
-          <div class="hero-photo-tag">
-            <span class="tag-label">Currently</span>
-            <span class="tag-value">IT Manager — Data &amp; AI · MAP Active</span>
-          </div>
-        </aside>
+        <p class="bc-tagline">Twelve years turning complex technology into measurable business value &mdash; across a 3,000+ store, 7-country retail ecosystem.</p>
+
+        <ul class="hero-meta" id="heroStats">
+          <li><span class="meta-num" data-count="12" data-suffix="+">0</span><span class="meta-label">Years in IT &amp; Data</span></li>
+          <li><span class="meta-num" data-count="60" data-suffix="%">0</span><span class="meta-label">Cloud cost reduction</span></li>
+          <li><span class="meta-num" data-count="3000" data-suffix="+">0</span><span class="meta-label">Stores served</span></li>
+          <li><span class="meta-num" data-count="20" data-suffix="+">0</span><span class="meta-label">Students supervised</span></li>
+        </ul>
       </div>
     </section>
 
@@ -1001,6 +1068,6 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="script.js?v=20260809g"></script>
+  <script src="script.js?v=20260829a"></script>
 </body>
 </html>
