@@ -138,46 +138,6 @@
   // Handled globally by the data-reveal / IntersectionObserver system below (v6+).
   // The legacy per-element inline-style reveal was removed to avoid double animation.
 
-  /* ---------- Animated number counters (hero stats) ---------- */
-  var heroStats = document.getElementById('heroStats');
-  if (heroStats && 'IntersectionObserver' in window) {
-    var counters = heroStats.querySelectorAll('.meta-num[data-count]');
-    var animateCount = function (el) {
-      var target = parseInt(el.getAttribute('data-count'), 10);
-      var suffix = el.getAttribute('data-suffix') || '';
-      var duration = 1400;
-      var start = null;
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduceMotion) {
-        el.textContent = target.toLocaleString() + suffix;
-        return;
-      }
-      var step = function (ts) {
-        if (!start) start = ts;
-        var progress = Math.min((ts - start) / duration, 1);
-        // easeOutCubic
-        var eased = 1 - Math.pow(1 - progress, 3);
-        var val = Math.floor(eased * target);
-        el.textContent = val.toLocaleString() + suffix;
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = target.toLocaleString() + suffix;
-        }
-      };
-      requestAnimationFrame(step);
-    };
-    var countObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          countObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(function (c) { countObserver.observe(c); });
-  }
-
   /* ---------- Reading progress bar ---------- */
   var progressBar = document.getElementById('readingProgress');
   if (progressBar) {
@@ -361,10 +321,57 @@
     if (surname) surname.style.transitionDelay = surnameDelay + 'ms';
   }
 
+  /* ---------- Animated number counters (hero stats) ---------- */
+  var heroStats = document.getElementById('heroStats');
+  /* v10: counters are armed only after the intro veil finishes, so the
+     0 -> value count-up is actually seen instead of running behind the veil. */
+  var countersArmed = false;
+  var initCounters = function () {
+    if (countersArmed || !heroStats || !('IntersectionObserver' in window)) return;
+    countersArmed = true;
+    var counters = heroStats.querySelectorAll('.meta-num[data-count]');
+    var animateCount = function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1400;
+      var start = null;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        el.textContent = target.toLocaleString() + suffix;
+        return;
+      }
+      var step = function (ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        // easeOutCubic
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var val = Math.floor(eased * target);
+        el.textContent = val.toLocaleString() + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target.toLocaleString() + suffix;
+        }
+      };
+      requestAnimationFrame(step);
+    };
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (c) { countObserver.observe(c); });
+  };
+
+
   /* ---------- Intro veil sequencing ---------- */
   function finishIntro() {
     body.classList.add('iv-done');
     if (card) card.classList.add('is-in');
+    initCounters();
     setTimeout(function () {
       if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
     }, 900);
@@ -373,6 +380,7 @@
     if (reduceMotion) {
       veil.parentNode && veil.parentNode.removeChild(veil);
       if (card) card.classList.add('is-in');
+      initCounters();
     } else {
       // two RAFs so the initial paint lands before animating
       requestAnimationFrame(function () {
@@ -386,8 +394,9 @@
         if (!body.classList.contains('iv-done')) finishIntro();
       }, 2400);
     }
-  } else if (card) {
-    card.classList.add('is-in');
+  } else {
+    if (card) card.classList.add('is-in');
+    initCounters();
   }
 
   if (reduceMotion) return; // no tilt / parallax / sheen below
